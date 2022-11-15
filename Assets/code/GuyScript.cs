@@ -14,7 +14,7 @@ public class GuyScript : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (canBoost == true && other.CompareTag("Player"))
-            Debug.Log("Boost!");
+            Debug.Log("Boost!"); // Add player speed boost here
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -22,7 +22,7 @@ public class GuyScript : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             canBoost = false;
-            Debug.Log("Slow!");
+            Debug.Log("Slow!"); // Add player slow here
             gameObject.SetActive(false);
         }
     }

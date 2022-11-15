@@ -435,6 +435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701b794de7c5ee24a806ec899fae8a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slomoSpeed: 0.5
+  slomoDuration: 1.5
+  slomoTimer: 0
 --- !u!1 &798843877
 GameObject:
   m_ObjectHideFlags: 0
