@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlomoScript : MonoBehaviour
 {
@@ -8,23 +9,20 @@ public class SlomoScript : MonoBehaviour
     [SerializeField] private float slomoDuration;
     [SerializeField] private float slomoTimer;
 
+    [SerializeField] private Slider boostBar;
+
+    private void Start()
+    {
+        boostBar.maxValue = slomoDuration;
+    }
+
     void Update()
     {
+        boostBar.normalizedValue = slomoTimer;
         if (slomoTimer < slomoDuration && Input.GetKey(KeyCode.K))
         {
             slomoTimer += Time.deltaTime;
             Time.timeScale = slomoSpeed;
-
-            //if (Input.GetKeyDown(KeyCode.K))
-            //{
-            //    Debug.Log("Stop");
-            //    Time.timeScale = slomoSpeed;
-            //}
-            //else if (Input.GetKeyUp(KeyCode.K))
-            //{
-            //    Time.timeScale = 1;
-            //    Debug.Log("Continue");
-            //}
         }
         else if (slomoTimer > 0)
         {
