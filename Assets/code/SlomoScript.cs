@@ -10,27 +10,36 @@ public class SlomoScript : MonoBehaviour
     [SerializeField] private float slomoTimer;
 
     [SerializeField] private Slider boostBar;
+    private bool canSlomo;
 
     private void Start()
     {
         boostBar.maxValue = slomoDuration;
+        canSlomo = true;
     }
 
     void Update()
     {
-        boostBar.normalizedValue = slomoTimer;
-        if (slomoTimer < slomoDuration && Input.GetKey(KeyCode.K))
+        boostBar.value = slomoTimer;
+
+        if (Input.GetKeyUp(KeyCode.K) || slomoTimer > slomoDuration)
+            canSlomo = false;
+
+        if (slomoTimer < slomoDuration && Input.GetKey(KeyCode.K) && canSlomo == true)
         {
             slomoTimer += Time.deltaTime;
             Time.timeScale = slomoSpeed;
         }
         else if (slomoTimer > 0)
         {
-            slomoTimer -= Time.deltaTime;
+            slomoTimer -= 0.25f *  Time.deltaTime;
             Time.timeScale = 1;
         }
 
         if (slomoTimer <= 0)
+        {
             slomoTimer = 0;
+            canSlomo = true;
+        }
     }
 }
