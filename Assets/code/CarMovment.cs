@@ -53,7 +53,7 @@ public class CarMovment : MonoBehaviour
 
     private void ForwardMovement()
     {
-       // Debug.Log(m_Bal.velocity.magnitude);
+        Debug.Log(m_Bal.velocity.magnitude);
         if (m_Bal.velocity.magnitude < m_NormalPlayermovment.MaxSpeed)
         {
             m_Bal.AddForce(transform.forward * m_NormalPlayermovment.Speed * Time.fixedDeltaTime * 10000f);
