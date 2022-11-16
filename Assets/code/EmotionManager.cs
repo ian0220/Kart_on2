@@ -19,6 +19,12 @@ public class EmotionManager : MonoBehaviour
     void Update()
     {
         emotionBar.value = emotion;
+
+        if (emotion > 100)
+            emotion = 100;
+
+        if (emotion < -100)
+            emotion = -100;
     }
 
     public void ChangeEmotion(int emotionChange)

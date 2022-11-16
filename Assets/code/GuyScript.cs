@@ -5,11 +5,22 @@ using UnityEngine;
 public class GuyScript : MonoBehaviour
 {
     [SerializeField] private GameObject emotionObject;
+    [SerializeField] private GameObject playerObject;
+    [SerializeField] private float guySpeed;
+    [SerializeField] private bool walkin;
     private bool canBoost;
 
     void Start()
     {
         canBoost = true;
+    }
+
+    private void Update()
+    {
+        if (walkin == true)
+        {
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, playerObject.transform.position, guySpeed);
+        }
     }
 
     private void OnTriggerExit(Collider other)
