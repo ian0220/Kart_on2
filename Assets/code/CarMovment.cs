@@ -13,6 +13,17 @@ public class CarMovment : MonoBehaviour
     private float m_timer;
     [SerializeField]private float m_endtimer = 5;
 
+    private bool OnGround;
+
+    [Header("Raycast")]
+    [SerializeField] LayerMask FloorLayer;
+    [SerializeField] LayerMask NothingLayer;
+    [SerializeField] float RayRange;
+    [SerializeField] Transform BeginPointRay;
+
+    [Header("CarArt")]
+    [SerializeField] Transform CarArtTransform;
+
     private float m_SpeedInput, m_TurnInput;
     void Start()
     {
@@ -45,6 +56,24 @@ public class CarMovment : MonoBehaviour
 
     private void FixedUpdate()
     {
+        OnGround = false;
+        RaycastHit hit;
+
+        if(Physics.Raycast(BeginPointRay.position, -transform.up, out hit,RayRange,FloorLayer))
+        {
+            OnGround = true;
+            print(OnGround);
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        }
+
+        if(!OnGround)
+        {
+            print(OnGround + " 2");
+            transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
+        }
+
+        
+
         ForwardMovement();
 
         
@@ -53,10 +82,10 @@ public class CarMovment : MonoBehaviour
 
     private void ForwardMovement()
     {
-        Debug.Log(m_Bal.velocity.magnitude);
+       // Debug.Log(m_Bal.velocity.magnitude);
         if (m_Bal.velocity.magnitude < m_NormalPlayermovment.MaxSpeed)
         {
-            m_Bal.AddForce(transform.forward * m_NormalPlayermovment.Speed * Time.fixedDeltaTime * 10000f);
+            m_Bal.AddForce(transform.forward * m_NormalPlayermovment.Speed);
         }
     }
 
@@ -74,6 +103,5 @@ public class CarMovment : MonoBehaviour
             m_timer = 0;
             IsDrifting = false;
         }
-
     }
 }
