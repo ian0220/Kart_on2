@@ -14,6 +14,7 @@ public class CarMovment : MonoBehaviour
     [SerializeField]private float m_endtimer = 5;
 
     private bool OnGround;
+    [SerializeField] float GrafetyForce = 5;
 
     [Header("Raycast")]
     [SerializeField] LayerMask FloorLayer;
@@ -66,15 +67,22 @@ public class CarMovment : MonoBehaviour
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
 
-        if(!OnGround)
-        {
-            print(OnGround + " 2");
-            transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
-        }
+        //if(!OnGround)
+        //{
+        //    print(OnGround + " 2");
+        //    transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
+        //}
 
         
-
-        ForwardMovement();
+        if(OnGround)
+        {
+            ForwardMovement();
+        }
+        else
+        {
+            m_Bal.AddForce(transform.up * GrafetyForce * 100f);
+            m_Bal.AddForce(transform.forward * (m_NormalPlayermovment.Speed * 0.5f));
+        }
 
         
 
