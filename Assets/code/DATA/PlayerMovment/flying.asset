@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 741bafaa4c0446045b5f612e7548b701, type: 3}
-  m_Name: DRift
-  m_EditorClassIdentifier: Assembly-CSharp::ScriptelbelPlayerMovment
-  MaxSpeed: 12
-  Speed: 2
-  MaxTuringSpeed: 3
+  m_Name: flying
+  m_EditorClassIdentifier: 
+  MaxSpeed: 15
+  Speed: 0.2
+  MaxTuringSpeed: 8

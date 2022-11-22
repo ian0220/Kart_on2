@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741bafaa4c0446045b5f612e7548b701, type: 3}
   m_Name: Normale
   m_EditorClassIdentifier: Assembly-CSharp::ScriptelbelPlayerMovment
-  MaxSpeed: 150000
-  Speed: 50000
+  MaxSpeed: 15
+  Speed: 4
   MaxTuringSpeed: 8
