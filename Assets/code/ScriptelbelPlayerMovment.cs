@@ -7,6 +7,6 @@ public class ScriptelbelPlayerMovment : ScriptableObject
 {
     public float MaxSpeed = 15f;
     public float Speed = 7;
-    public float MaxTuringSpeed = 8f;
+    public float TuringSpeed = 8f;
     
 }
