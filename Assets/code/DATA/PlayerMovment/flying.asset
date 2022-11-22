@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: flying
   m_EditorClassIdentifier: 
   MaxSpeed: 15
-  Speed: 0.2
-  MaxTuringSpeed: 8
+  Speed: 2
+  TuringSpeed: 8

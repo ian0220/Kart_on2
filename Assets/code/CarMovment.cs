@@ -29,7 +29,9 @@ public class CarMovment : MonoBehaviour
     [SerializeField] Transform BeginPointRay;
 
     [Header("CarArt")]
-    [SerializeField] Transform CarArtTransform;
+    [SerializeField] Transform m_CarArtTransform;
+    [SerializeField] float m_yasARTCar;
+    private float test;
 
 
     [Header("private")]
@@ -43,25 +45,30 @@ public class CarMovment : MonoBehaviour
     
     void Update()
     {
+        
         m_TurnInput = Input.GetAxis("Horizontal");
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_TurnInput * m_TurnStrength * Time.deltaTime * 100f, 0f));
 
         transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
 
-        if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKeyDown(KeyCode.A)))
+        if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKeyDown(KeyCode.A)) && (!IsDrifting))
         {
-            m_Driftto = -1f;
+            m_Driftto = -10f;
+            test = -m_yasARTCar;
             IsDrifting = true;
         }
-        else if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKeyDown(KeyCode.D)))
-        {
-            m_Driftto = 1f;
+        else if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKeyDown(KeyCode.D)) && (!IsDrifting))
+        { 
+
+            test = m_yasARTCar;
+            m_Driftto = 10f;
             IsDrifting = true;
         }
 
         if (IsDrifting)
         {
-            Drifting(m_Driftto);
+            print(IsDrifting);
+            Drifting(m_Driftto, test);
         }
 
         if (transform.position.y < -5)
@@ -90,10 +97,9 @@ public class CarMovment : MonoBehaviour
             ForwardMovement();
         }
         else
-        {
-            print(OnGround);
+        {       
             m_RB.AddForce(transform.up * -GrafetyForce * 100f);
-            m_RB.AddForce(transform.forward * m_FlyingMovement.Speed * 1000f);
+            m_RB.AddForce(transform.forward * m_FlyingMovement.Speed * Time.fixedDeltaTime * 1000f);
         }
 
 
@@ -105,21 +111,21 @@ public class CarMovment : MonoBehaviour
         Debug.Log(m_RB.velocity.magnitude);
         if (m_RB.velocity.magnitude < m_NormalPlayermovment.MaxSpeed)
         {
-            m_RB.AddForce(transform.forward * m_NormalPlayermovment.Speed * 1000f);
+            m_RB.AddForce(transform.forward * m_NormalPlayermovment.Speed * Time.fixedDeltaTime * 1000f);
         }
     }
 
-    private void Drifting(float _TuringTo)
+    private void Drifting(float _TuringTo ,float _yasartcar)
     {
-        //print("in clas drift");
         m_timer += Time.deltaTime;
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            //print("holding shift");
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));
+            m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, _yasartcar, 0));
         }
         else
         {
+            m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
             m_timer = 0;
             IsDrifting = false;
         }
