@@ -262,10 +262,12 @@ MonoBehaviour:
   m_DriftStrengt: 2
   GrafetyForce: 20
   m_endtimer: 5
+  SetBoostSpeed: 200
   m_NormalPlayermovment: {fileID: 11400000, guid: fb0d5399be2d1d246ac4c1bf526a4e92,
     type: 2}
   m_DriftMovment: {fileID: 11400000, guid: 6015aacfab3e35049863de36b1e8dc68, type: 2}
   m_FlyingMovement: {fileID: 11400000, guid: b857c24413008f04d9fbd93a83d277c3, type: 2}
+  boostspeed: 0
   FloorLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -2436,7 +2438,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716086038}
-  m_LocalRotation: {x: 0.2669336, y: -0.000000009207489, z: 0.0000000025503266, w: 0.96371496}
+  m_LocalRotation: {x: 0.26693362, y: -0.000000020953253, z: 0.0000000058037157, w: 0.96371496}
   m_LocalPosition: {x: 0, y: 5.8, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6220,7 +6222,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574165443}
-  m_LocalRotation: {x: 0.2669336, y: -0.000000009207489, z: 0.0000000025503266, w: 0.96371496}
+  m_LocalRotation: {x: 0.26693362, y: -0.000000020953253, z: 0.0000000058037157, w: 0.96371496}
   m_LocalPosition: {x: 0, y: 5.8, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
