@@ -23,7 +23,7 @@ public class CarMovment : MonoBehaviour
     [SerializeField] private ScriptelbelPlayerMovment m_NormalPlayermovment;
     [SerializeField] private ScriptelbelPlayerMovment m_DriftMovment;
     [SerializeField] private ScriptelbelPlayerMovment m_FlyingMovement;
-    [SerializeField] private float boostspeed;
+    private float boostspeed;
 
     [Header("Raycast")]
     [SerializeField] LayerMask FloorLayer;
