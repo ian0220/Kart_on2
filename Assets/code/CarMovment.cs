@@ -16,6 +16,8 @@ public class CarMovment : MonoBehaviour
     private float m_Driftto = 0;
     private bool IsDrifting = false;
     private float m_timer;
+    private bool GiveBoost = false;
+    [SerializeField] float SetBoostSpeed;
 
     [Header("MovmentData")]
     [SerializeField] private ScriptelbelPlayerMovment m_NormalPlayermovment;
@@ -115,17 +117,14 @@ public class CarMovment : MonoBehaviour
     {
         CheckOnGround();
 
-        if (OnGround)
-        {
-            ForwardMovement();
-        }
-        else
-        {
+        ForwardMovement();
+        if (!OnGround)
+        {       
             m_RB.AddForce(transform.up * -GrafetyForce * 100f);
-            m_RB.AddForce(transform.forward * m_FlyingMovement.Speed * Time.fixedDeltaTime * 1000f);
         }
 
-
+        print(m_timer);
+        print(GiveBoost);
 
     }
 
@@ -145,9 +144,10 @@ public class CarMovment : MonoBehaviour
     private void ForwardMovement()
     {
       //  Debug.Log(m_RB.velocity.magnitude);
-        if (m_RB.velocity.magnitude < m_MaxSpeed)
+        if (m_RB.velocity.magnitude < m_MaxSpeed ||(GiveBoost))
         {
-            m_RB.AddForce(transform.forward * m_Speed * Time.fixedDeltaTime * 1000f);
+            m_Speed += boostspeed;
+            m_RB.AddForce(transform.forward * m_Speed* Time.fixedDeltaTime * 1000f);
         }
     }
 
@@ -160,12 +160,12 @@ public class CarMovment : MonoBehaviour
             
             m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, _yasartcar, 0));
         }
-        else if(m_timer <= m_endtimer)
-        {
-            StartCoroutine(Boost());
-        }
         else
         {
+            if(m_timer >= m_endtimer)
+            {
+                StartCoroutine(Boost());
+            }
             m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
             m_timer = 0;
             IsDrifting = false;
@@ -174,9 +174,11 @@ public class CarMovment : MonoBehaviour
 
     private IEnumerator Boost()
     {
-        m_Speed += boostspeed;
+        GiveBoost = true;
+        boostspeed = SetBoostSpeed;
         yield return new WaitForSeconds(3f);
-        m_Speed -= boostspeed;
+        GiveBoost = false;
+        boostspeed = 0;
         yield return null;
     }
 }
