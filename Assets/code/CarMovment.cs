@@ -21,6 +21,7 @@ public class CarMovment : MonoBehaviour
     [SerializeField] private ScriptelbelPlayerMovment m_NormalPlayermovment;
     [SerializeField] private ScriptelbelPlayerMovment m_DriftMovment;
     [SerializeField] private ScriptelbelPlayerMovment m_FlyingMovement;
+    [SerializeField] private float boostspeed;
 
     [Header("Raycast")]
     [SerializeField] LayerMask FloorLayer;
@@ -39,6 +40,7 @@ public class CarMovment : MonoBehaviour
     private float m_SpeedInput, m_TurnInput;
     private float m_TurnStrength;
     private float m_Speed;
+    private float m_MaxSpeed;
     void Start()
     {
         m_RB.transform.parent = null;
@@ -47,27 +49,40 @@ public class CarMovment : MonoBehaviour
     
     void Update()
     {
-        
+
         m_TurnInput = Input.GetAxis("Horizontal");
-        if(OnGround && (!IsDrifting))
+        SetOverData();
+
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_TurnInput * m_TurnStrength * Time.deltaTime * 10f, 0f));
+        transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
+        ToDrifting();
+        OfTheWorld();
+    }
+
+    private void SetOverData()
+    {
+        if (OnGround && (!IsDrifting))
         {
             m_TurnStrength = m_NormalPlayermovment.TuringSpeed;
             m_Speed = m_NormalPlayermovment.Speed;
+            m_MaxSpeed = m_NormalPlayermovment.MaxSpeed;
         }
-        else if(OnGround && (IsDrifting))
+        else if (OnGround && (IsDrifting))
         {
             m_TurnStrength = m_DriftMovment.TuringSpeed;
             m_Speed = m_DriftMovment.Speed;
+            m_MaxSpeed = m_DriftMovment.MaxSpeed;
         }
-        else if(!OnGround && (!IsDrifting))
+        else if (!OnGround && (!IsDrifting))
         {
             m_TurnStrength = m_FlyingMovement.TuringSpeed;
             m_Speed = m_FlyingMovement.Speed;
+            m_MaxSpeed = m_FlyingMovement.MaxSpeed;
         }
+    }
 
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_TurnInput * m_TurnStrength * Time.deltaTime * 10f, 0f));
-        transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
-
+    private void ToDrifting()
+    {
         if (Input.GetKey(KeyCode.A) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
         {
             m_Driftto = -10f;
@@ -75,7 +90,7 @@ public class CarMovment : MonoBehaviour
             IsDrifting = true;
         }
         else if (Input.GetKey(KeyCode.D) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
-        { 
+        {
 
             test = m_yasARTCar;
             m_Driftto = 10f;
@@ -86,7 +101,10 @@ public class CarMovment : MonoBehaviour
         {
             Drifting(m_Driftto, test);
         }
+    }
 
+    private void OfTheWorld()
+    {
         if (m_RB.transform.position.y < -5)
         {
             m_RB.transform.position = new Vector3(0, 5, 0);
@@ -94,6 +112,24 @@ public class CarMovment : MonoBehaviour
     }
 
     private void FixedUpdate()
+    {
+        CheckOnGround();
+
+        if (OnGround)
+        {
+            ForwardMovement();
+        }
+        else
+        {
+            m_RB.AddForce(transform.up * -GrafetyForce * 100f);
+            m_RB.AddForce(transform.forward * m_FlyingMovement.Speed * Time.fixedDeltaTime * 1000f);
+        }
+
+
+
+    }
+
+    private void CheckOnGround()
     {
         // schiet een race cats naar beneden om te kijken of die de layer raakt als dat zo is dan voert die de if uit
         OnGround = false;
@@ -104,28 +140,12 @@ public class CarMovment : MonoBehaviour
             OnGround = true;
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
-
-
-
-
-        if (OnGround)
-        {
-            ForwardMovement();
-        }
-        else
-        {       
-            m_RB.AddForce(transform.up * -GrafetyForce * 100f);
-            m_RB.AddForce(transform.forward * m_FlyingMovement.Speed * Time.fixedDeltaTime * 1000f);
-        }
-
-
-
     }
 
     private void ForwardMovement()
     {
       //  Debug.Log(m_RB.velocity.magnitude);
-        if (m_RB.velocity.magnitude < m_NormalPlayermovment.MaxSpeed)
+        if (m_RB.velocity.magnitude < m_MaxSpeed)
         {
             m_RB.AddForce(transform.forward * m_Speed * Time.fixedDeltaTime * 1000f);
         }
@@ -137,7 +157,12 @@ public class CarMovment : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));
+            
             m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, _yasartcar, 0));
+        }
+        else if(m_timer <= m_endtimer)
+        {
+            StartCoroutine(Boost());
         }
         else
         {
@@ -145,5 +170,13 @@ public class CarMovment : MonoBehaviour
             m_timer = 0;
             IsDrifting = false;
         }
+    }
+
+    private IEnumerator Boost()
+    {
+        m_Speed += boostspeed;
+        yield return new WaitForSeconds(3f);
+        m_Speed -= boostspeed;
+        yield return null;
     }
 }
