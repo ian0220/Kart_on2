@@ -21,6 +21,11 @@ public class GuyScript : MonoBehaviour
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, playerObject.transform.position, guySpeed);
         }
+
+        if (emotionObject.GetComponent<EmotionManager>().emotion <= -50)
+            walkin = true;
+        else
+            walkin = false;
     }
 
     private void OnTriggerExit(Collider other)
