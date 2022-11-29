@@ -56,7 +56,7 @@ public class CarMovment : MonoBehaviour
 
     void Update()
     {
-
+        print(Lerpnummer);
         m_TurnInput = Input.GetAxis("Horizontal");
         SetOverData();
 
@@ -127,10 +127,6 @@ public class CarMovment : MonoBehaviour
         {
             m_RB.AddForce(transform.up * -GrafetyForce * 100f);
         }
-
-        print(m_timer);
-        print(GiveBoost);
-
     }
 
     private void CheckOnGround()
@@ -168,7 +164,7 @@ public class CarMovment : MonoBehaviour
                 m_CorotineLerpBack = false;
             }
                 m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.transform.localRotation, Quaternion.Euler(0, _yasartcar, 0), Lerpnummer);
-                Lerpnummer += 0.5f * Time.deltaTime;
+                Lerpnummer += 0.2f * Time.deltaTime;
               //  StartCoroutine(LerCarArt(Quaternion.Euler(0, _yasartcar, 0)));
             
             m_CorotineLerpGo = true;
@@ -185,13 +181,15 @@ public class CarMovment : MonoBehaviour
                 StartCoroutine(Boost());
             }
             
-            if(!m_CorotineLerp)
+            while(Lerpnummer <= 1f)
             {
-              //  m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, 0, 0)), Lerpnummer);
-               // Lerpnummer += 0.5f * Time.deltaTime;
-                m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, 0, 0)), Lerpnummer);
+                Lerpnummer += 0.2f * Time.deltaTime;
+              //  m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
                 m_CorotineLerpBack = true;
+
             }
+            
             m_timer = 0;
             IsDrifting = false;
         }      
