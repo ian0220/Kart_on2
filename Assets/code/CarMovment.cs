@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class CarMovment : MonoBehaviour
 {
-
-
     [SerializeField] private float m_YVerhogen = 3.76f;
-    [SerializeField]private Rigidbody m_RB;
-    [SerializeField]private float m_DriftStrengt = 2;
+    [SerializeField] private Rigidbody m_RB;
+    [SerializeField] private float m_DriftStrengt = 2;
     [SerializeField] float GrafetyForce = 5;
 
     [Header("Drift")]
-    [SerializeField]private float m_endtimer = 5;
+    [SerializeField] private float m_endtimer = 5;
     private float m_Driftto = 0;
     private bool IsDrifting = false;
     private float m_timer;
     private bool GiveBoost = false;
     [SerializeField] float SetBoostSpeed;
+    [SerializeField] float m_BoostTime = 3f;
+    [SerializeField] int m_timeInfrimeLerp = 5;
+    [SerializeField] float m_HowLongToLerp = 50f;
 
     [Header("MovmentData")]
     [SerializeField] private ScriptelbelPlayerMovment m_NormalPlayermovment;
@@ -43,12 +44,16 @@ public class CarMovment : MonoBehaviour
     private float m_TurnStrength;
     private float m_Speed;
     private float m_MaxSpeed;
+    private float Lerpnummer = 0;
+    private bool m_CorotineLerp = false;
+    private bool m_CorotineLerpGo = false;
+    private bool m_CorotineLerpBack = false;
     void Start()
     {
         m_RB.transform.parent = null;
     }
 
-    
+
     void Update()
     {
 
@@ -119,7 +124,7 @@ public class CarMovment : MonoBehaviour
 
         ForwardMovement();
         if (!OnGround)
-        {       
+        {
             m_RB.AddForce(transform.up * -GrafetyForce * 100f);
         }
 
@@ -143,42 +148,77 @@ public class CarMovment : MonoBehaviour
 
     private void ForwardMovement()
     {
-      //  Debug.Log(m_RB.velocity.magnitude);
-        if (m_RB.velocity.magnitude < m_MaxSpeed ||(GiveBoost))
+        //  Debug.Log(m_RB.velocity.magnitude);
+        if (m_RB.velocity.magnitude < m_MaxSpeed || (GiveBoost))
         {
             m_Speed += boostspeed;
-            m_RB.AddForce(transform.forward * m_Speed* Time.fixedDeltaTime * 1000f);
+            m_RB.AddForce(transform.forward * m_Speed * Time.fixedDeltaTime * 1000f);
         }
     }
 
-    private void Drifting(float _TuringTo ,float _yasartcar)
+    private void Drifting(float _TuringTo, float _yasartcar)
     {
         m_timer += Time.deltaTime;
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));
+            //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));      
+            if(m_CorotineLerpBack)
+            {
+                Lerpnummer = 0;
+                m_CorotineLerpBack = false;
+            }
+                m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.transform.localRotation, Quaternion.Euler(0, _yasartcar, 0), Lerpnummer);
+                Lerpnummer += 0.5f * Time.deltaTime;
+              //  StartCoroutine(LerCarArt(Quaternion.Euler(0, _yasartcar, 0)));
             
-            m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, _yasartcar, 0));
+            m_CorotineLerpGo = true;
         }
         else
         {
-            if(m_timer >= m_endtimer)
+            if(m_CorotineLerpGo)
             {
+                Lerpnummer = 0;
+                m_CorotineLerpGo = false;
+            }
+            if (m_timer >= m_endtimer)
+            {// maak controle dat als die al beastaat niet nog 1 
                 StartCoroutine(Boost());
             }
-            m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            
+            if(!m_CorotineLerp)
+            {
+              //  m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, 0, 0)), Lerpnummer);
+               // Lerpnummer += 0.5f * Time.deltaTime;
+                m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                m_CorotineLerpBack = true;
+            }
             m_timer = 0;
             IsDrifting = false;
-        }
+        }      
     }
 
     private IEnumerator Boost()
     {
         GiveBoost = true;
         boostspeed = SetBoostSpeed;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(m_BoostTime);
         GiveBoost = false;
         boostspeed = 0;
         yield return null;
+    }
+    // corotiene maken 
+
+    private IEnumerator LerCarArt(Quaternion _endplace)
+    {
+        m_CorotineLerp = true;
+        float _time = 0;
+        
+        while(Lerpnummer >= _time)
+        {
+            m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.transform.rotation, _endplace, Lerpnummer / _time );
+            _time += Time.deltaTime;
+        }
+        yield return null;
+        m_CorotineLerp = false;
     }
 }
