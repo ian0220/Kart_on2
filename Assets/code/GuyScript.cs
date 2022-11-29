@@ -12,6 +12,8 @@ public class GuyScript : MonoBehaviour
 
     void Start()
     {
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        emotionObject = GameObject.FindGameObjectWithTag("EmotionBalk");
         canBoost = true;
     }
 
