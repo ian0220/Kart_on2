@@ -35,7 +35,7 @@ public class CarMovment : MonoBehaviour
     [Header("CarArt")]
     [SerializeField] Transform m_CarArtTransform;
     [SerializeField] float m_yasARTCar;
-    private float test;
+    private float m_YasCarArtGoTo;
 
 
     [Header("private")]
@@ -45,9 +45,6 @@ public class CarMovment : MonoBehaviour
     private float m_Speed;
     private float m_MaxSpeed;
     private float Lerpnummer = 0;
-    private bool m_CorotineLerp = false;
-    private bool m_CorotineLerpGo = false;
-    private bool m_CorotineLerpBack = false;
     void Start()
     {
         m_RB.transform.parent = null;
@@ -56,7 +53,6 @@ public class CarMovment : MonoBehaviour
 
     void Update()
     {
-        print(Lerpnummer);
         m_TurnInput = Input.GetAxis("Horizontal");
         SetOverData();
 
@@ -93,30 +89,35 @@ public class CarMovment : MonoBehaviour
         if (Input.GetKey(KeyCode.A) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
         {
             m_Driftto = -10f;
-            test = -m_yasARTCar;
+            m_YasCarArtGoTo = -m_yasARTCar;
             IsDrifting = true;
         }
         else if (Input.GetKey(KeyCode.D) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
         {
 
-            test = m_yasARTCar;
+            m_YasCarArtGoTo = m_yasARTCar;
             m_Driftto = 10f;
             IsDrifting = true;
         }
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Lerpnummer = 0;
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            m_YasCarArtGoTo = 0f;
+            Lerpnummer = 0;
+        }
 
+        m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
+        Lerpnummer += 0.5f * Time.deltaTime;
+        print(Lerpnummer);
         if (IsDrifting)
         {
-            Drifting(m_Driftto, test);
+            Drifting(m_Driftto);
         }
     }
 
-    private void OfTheWorld()
-    {
-        if (m_RB.transform.position.y < -5)
-        {
-            m_RB.transform.position = new Vector3(0, 5, 0);
-        }
-    }
 
     private void FixedUpdate()
     {
@@ -144,7 +145,6 @@ public class CarMovment : MonoBehaviour
 
     private void ForwardMovement()
     {
-        //  Debug.Log(m_RB.velocity.magnitude);
         if (m_RB.velocity.magnitude < m_MaxSpeed || (GiveBoost))
         {
             m_Speed += boostspeed;
@@ -152,71 +152,38 @@ public class CarMovment : MonoBehaviour
         }
     }
 
-    private void Drifting(float _TuringTo, float _yasartcar)
+    private void Drifting(float _TuringTo)
     {
-        m_timer += Time.deltaTime;
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));      
-            if(m_CorotineLerpBack)
-            {
-                Lerpnummer = 0;
-                m_CorotineLerpBack = false;
-            }
-                m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.transform.localRotation, Quaternion.Euler(0, _yasartcar, 0), Lerpnummer);
-                Lerpnummer += 0.2f * Time.deltaTime;
-              //  StartCoroutine(LerCarArt(Quaternion.Euler(0, _yasartcar, 0)));
-            
-            m_CorotineLerpGo = true;
+            m_timer += Time.deltaTime;
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));
         }
         else
-        {
-            if(m_CorotineLerpGo)
+        { 
+            if (m_timer >= m_endtimer && (!GiveBoost))
             {
-                Lerpnummer = 0;
-                m_CorotineLerpGo = false;
+                StartCoroutine(Boost(SetBoostSpeed));
             }
-            if (m_timer >= m_endtimer)
-            {// maak controle dat als die al beastaat niet nog 1 
-                StartCoroutine(Boost());
-            }
-            
-            while(Lerpnummer <= 1f)
-            {
-                m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, 0, 0)), Lerpnummer);
-                Lerpnummer += 0.2f * Time.deltaTime;
-              //  m_CarArtTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-                m_CorotineLerpBack = true;
-
-            }
-            
             m_timer = 0;
             IsDrifting = false;
         }      
     }
 
-    private IEnumerator Boost()
+    public IEnumerator Boost(float _SetBoostSpeed)
     {
         GiveBoost = true;
-        boostspeed = SetBoostSpeed;
+        boostspeed = _SetBoostSpeed;
         yield return new WaitForSeconds(m_BoostTime);
         GiveBoost = false;
         boostspeed = 0;
         yield return null;
     }
-    // corotiene maken 
-
-    private IEnumerator LerCarArt(Quaternion _endplace)
+    private void OfTheWorld()
     {
-        m_CorotineLerp = true;
-        float _time = 0;
-        
-        while(Lerpnummer >= _time)
+        if (m_RB.transform.position.y < -5)
         {
-            m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.transform.rotation, _endplace, Lerpnummer / _time );
-            _time += Time.deltaTime;
+            m_RB.transform.position = new Vector3(0, 5, 0);
         }
-        yield return null;
-        m_CorotineLerp = false;
     }
 }
