@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScriptelbelPlayerMovment
   MaxSpeed: 15000
   Speed: 200
-  TuringSpeed: 10
+  TuringSpeed: 7
