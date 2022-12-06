@@ -145,9 +145,9 @@ public class CarMovment : MonoBehaviour
 
     private void ForwardMovement()
     {
+        print(m_RB.velocity.magnitude);
         if (m_RB.velocity.magnitude < m_MaxSpeed || (GiveBoost))
         {
-            m_Speed += boostspeed;
             m_RB.AddForce(transform.forward * m_Speed * Time.fixedDeltaTime * 1000f);
         }
     }
@@ -174,9 +174,11 @@ public class CarMovment : MonoBehaviour
     {
         GiveBoost = true;
         boostspeed = _SetBoostSpeed;
+        m_Speed += boostspeed;
         yield return new WaitForSeconds(m_BoostTime);
         GiveBoost = false;
         boostspeed = 0;
+        m_Speed += boostspeed;
         yield return null;
     }
     private void OfTheWorld()
