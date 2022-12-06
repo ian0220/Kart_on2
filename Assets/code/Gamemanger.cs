@@ -24,7 +24,7 @@ public class Gamemanger : MonoBehaviour
     }
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
