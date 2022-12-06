@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741bafaa4c0446045b5f612e7548b701, type: 3}
   m_Name: DRift
   m_EditorClassIdentifier: Assembly-CSharp::ScriptelbelPlayerMovment
-  MaxSpeed: 12
-  Speed: 20
-  TuringSpeed: 8
+  MaxSpeed: 15000
+  Speed: 200
+  TuringSpeed: 7
