@@ -16,6 +16,7 @@ public class GuyScript : MonoBehaviour
         playerObject = GameObject.FindGameObjectWithTag("Player");
         emotionObject = GameObject.FindGameObjectWithTag("EmotionBalk");
         canBoost = true;
+        EmotionCheck();
     }
 
     private void Update()
@@ -23,17 +24,6 @@ public class GuyScript : MonoBehaviour
         if (walkin == true)
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, playerObject.transform.position, guySpeed);
-        }
-
-        if (emotionObject.GetComponent<EmotionManager>().emotion <= -50)
-        {
-            walkin = true;
-            turnObject.transform.rotation = new Quaternion(0, transform.rotation.y + 180, 0, 0);
-        }
-        else
-        {
-            walkin = false;
-            //transform.rotation = new Quaternion(0, 0, 0, 0);
         }
 
         // https://answers.unity.com/questions/161053/making-an-object-rotate-to-face-another-object.html
@@ -63,6 +53,20 @@ public class GuyScript : MonoBehaviour
             //StartCoroutine(playerObject.GetComponent<CarMovment>().Boost(-100));
             emotionObject.GetComponent<EmotionManager>().ChangeEmotion(-25);
             gameObject.SetActive(false);
+        }
+    }
+
+    public void EmotionCheck()
+    {
+        if (emotionObject.GetComponent<EmotionManager>().emotion <= -50)
+        {
+            walkin = true;
+            turnObject.transform.rotation = new Quaternion(0, transform.rotation.y + 180, 0, 0);
+        }
+        else
+        {
+            walkin = false;
+            turnObject.transform.rotation = new Quaternion(0, 180, 0, 0);
         }
     }
 }
