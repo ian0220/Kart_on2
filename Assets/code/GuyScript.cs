@@ -25,16 +25,25 @@ public class GuyScript : MonoBehaviour
         }
 
         if (emotionObject.GetComponent<EmotionManager>().emotion <= -50)
+        {
             walkin = true;
+            transform.rotation = new Quaternion(0, 180, 0, 0);
+        }
         else
+        {
             walkin = false;
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
+
+        transform.LookAt(playerObject.transform.position);
+
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (canBoost == true && other.CompareTag("Player"))
         {
-            Debug.Log("Boost!"); // Add player speed boost here
+            StartCoroutine(playerObject.GetComponent<CarMovment>().Boost(100));
             emotionObject.GetComponent<EmotionManager>().ChangeEmotion(25);
         }
     }
@@ -44,7 +53,7 @@ public class GuyScript : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             canBoost = false;
-            Debug.Log("Slow!"); // Add player slow here
+            StartCoroutine(playerObject.GetComponent<CarMovment>().Boost(-100));
             emotionObject.GetComponent<EmotionManager>().ChangeEmotion(-25);
             gameObject.SetActive(false);
         }
