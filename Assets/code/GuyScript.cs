@@ -6,6 +6,7 @@ public class GuyScript : MonoBehaviour
 {
     [SerializeField] private GameObject emotionObject;
     [SerializeField] private GameObject playerObject;
+    [SerializeField] private GameObject turnObject;
     [SerializeField] private float guySpeed;
     [SerializeField] private bool walkin;
     private bool canBoost;
@@ -27,15 +28,21 @@ public class GuyScript : MonoBehaviour
         if (emotionObject.GetComponent<EmotionManager>().emotion <= -50)
         {
             walkin = true;
-            transform.rotation = new Quaternion(0, 180, 0, 0);
+            turnObject.transform.rotation = new Quaternion(0, transform.rotation.y + 180, 0, 0);
         }
         else
         {
             walkin = false;
-            transform.rotation = new Quaternion(0, 0, 0, 0);
+            //transform.rotation = new Quaternion(0, 0, 0, 0);
         }
 
-        transform.LookAt(playerObject.transform.position);
+        // https://answers.unity.com/questions/161053/making-an-object-rotate-to-face-another-object.html
+        int damping = 2;
+
+        var lookPos = playerObject.transform.position - transform.position;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
 
     }
 
@@ -43,7 +50,7 @@ public class GuyScript : MonoBehaviour
     {
         if (canBoost == true && other.CompareTag("Player"))
         {
-            StartCoroutine(playerObject.GetComponent<CarMovment>().Boost(100));
+            //StartCoroutine(playerObject.GetComponent<CarMovment>().Boost(100));
             emotionObject.GetComponent<EmotionManager>().ChangeEmotion(25);
         }
     }
@@ -53,7 +60,7 @@ public class GuyScript : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             canBoost = false;
-            StartCoroutine(playerObject.GetComponent<CarMovment>().Boost(-100));
+            //StartCoroutine(playerObject.GetComponent<CarMovment>().Boost(-100));
             emotionObject.GetComponent<EmotionManager>().ChangeEmotion(-25);
             gameObject.SetActive(false);
         }
