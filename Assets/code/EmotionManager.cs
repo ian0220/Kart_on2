@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EmotionManager : MonoBehaviour
 {
     [SerializeField] private Slider emotionBar;
-    [SerializeField] private GuyScript guyScript;
+    [SerializeField] private GuyScript[] guyScripts;
     [SerializeField] private int maxEmotion;
     [SerializeField] private int minEmotion;
     public int emotion;
@@ -15,6 +15,8 @@ public class EmotionManager : MonoBehaviour
     {
         emotionBar.maxValue = maxEmotion;
         emotionBar.minValue = minEmotion;
+
+        guyScripts = FindObjectsOfType<GuyScript>();
     }
 
     void Update()
@@ -31,6 +33,9 @@ public class EmotionManager : MonoBehaviour
     public void ChangeEmotion(int emotionChange)
     {
         emotion += emotionChange;
-        guyScript.EmotionCheck();
+        for (int i = 0; i < guyScripts.Length; i++)
+        {
+            guyScripts[i].EmotionCheck();
+        }
     }
 }

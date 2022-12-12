@@ -142,6 +142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emotionBar: {fileID: 3345752669979933768}
+  guyScriptOne: {fileID: 7341403651716818323, guid: fd41247a683153c45b94f693dc5b2fbb,
+    type: 3}
+  guyScriptTwo: {fileID: 1962255152654371367, guid: 09671ca79867f354b8b604d3b760da32,
+    type: 3}
+  guyScriptThree: {fileID: 6401777565072426556, guid: 4d724b3db2d6eff438a57e52713f80bc,
+    type: 3}
   maxEmotion: 100
   minEmotion: -100
   emotion: 0
