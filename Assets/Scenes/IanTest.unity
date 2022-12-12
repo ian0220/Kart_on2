@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7141.6514, g: 4595.682, b: 3038.469, a: 1}
+  m_IndirectSpecularColor: {r: 7145.5264, g: 4597.231, b: 3038.3596, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -263,7 +263,7 @@ MonoBehaviour:
   GrafetyForce: 20
   m_endtimer: 5
   SetBoostSpeed: 200
-  m_BoostTime: 3
+  m_BoostTime: 1.5
   m_timeInfrimeLerp: 600
   m_HowLongToLerp: 50
   m_NormalPlayermovment: {fileID: 11400000, guid: fb0d5399be2d1d246ac4c1bf526a4e92,
@@ -279,7 +279,10 @@ MonoBehaviour:
   RayRange: 1
   BeginPointRay: {fileID: 788901470}
   m_CarArtTransform: {fileID: 1981148271}
+  m_RightWheel: {fileID: 1795941063}
+  m_LeftWheel: {fileID: 1900164854}
   m_yasARTCar: 45
+  m_turnAmmount: 20
 --- !u!4 &66293797
 Transform:
   m_ObjectHideFlags: 0
@@ -2458,7 +2461,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716086038}
-  m_LocalRotation: {x: 0.26693356, y: -0.000000040190915, z: 0.000000011132238, w: 0.96371496}
+  m_LocalRotation: {x: 0.26693356, y: 0.000000040190915, z: -0.000000011132238, w: 0.96371496}
   m_LocalPosition: {x: 0, y: 5.8, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2496,7 +2499,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.0000001, y: 1}
+    m_SensorSize: {x: 0.8432387, y: 1}
     Iso: 200
     ShutterSpeed: 0.005
     Aperture: 16
@@ -6104,7 +6107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574165443}
-  m_LocalRotation: {x: 0.26693356, y: -0.000000040190915, z: 0.000000011132238, w: 0.96371496}
+  m_LocalRotation: {x: 0.26693356, y: 0.000000040190915, z: -0.000000011132238, w: 0.96371496}
   m_LocalPosition: {x: 0, y: 5.8, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7540,6 +7543,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8650118934009196975, guid: 5cf24bb48422032489adb3f2c9b6a09e,
+        type: 3}
+      propertyPath: m_Name
+      value: LeftWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: -8025284426920905091, guid: 5cf24bb48422032489adb3f2c9b6a09e,
+        type: 3}
+      propertyPath: m_Name
+      value: RightWheel
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5cf24bb48422032489adb3f2c9b6a09e,
         type: 3}
