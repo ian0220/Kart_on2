@@ -61,9 +61,9 @@ public class GuyScript : MonoBehaviour
         if (emotionObject.GetComponent<EmotionManager>().emotion <= -50)
         {
             walkin = true;
-            turnObject.transform.rotation = new Quaternion(0, transform.rotation.y + 180, 0, 0);
+            turnObject.transform.rotation = new Quaternion(0, 0, 0, 0);
         }
-        else
+        else if (emotionObject.GetComponent<EmotionManager>().emotion > -50)
         {
             walkin = false;
             turnObject.transform.rotation = new Quaternion(0, 180, 0, 0);
