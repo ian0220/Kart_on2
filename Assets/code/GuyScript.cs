@@ -6,7 +6,8 @@ public class GuyScript : MonoBehaviour
 {
     [SerializeField] private GameObject emotionObject;
     [SerializeField] private GameObject playerObject;
-    [SerializeField] private GameObject turnObject;
+    [SerializeField] private GameObject turnObject1;
+    [SerializeField] private GameObject turnObject2;
     [SerializeField] private float guySpeed;
     [SerializeField] private bool walkin;
     private bool canBoost;
@@ -15,6 +16,8 @@ public class GuyScript : MonoBehaviour
     {
         playerObject = GameObject.FindGameObjectWithTag("Player");
         emotionObject = GameObject.FindGameObjectWithTag("EmotionBalk");
+        turnObject1.SetActive(false);
+        turnObject2.SetActive(true);
         canBoost = true;
         EmotionCheck();
     }
@@ -61,12 +64,14 @@ public class GuyScript : MonoBehaviour
         if (emotionObject.GetComponent<EmotionManager>().emotion <= -50)
         {
             walkin = true;
-            turnObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+            turnObject1.SetActive(true);
+            turnObject2.SetActive(false);
         }
         else if (emotionObject.GetComponent<EmotionManager>().emotion > -50)
         {
             walkin = false;
-            turnObject.transform.rotation = new Quaternion(0, 180, 0, 0);
+            turnObject1.SetActive(false);
+            turnObject2.SetActive(true);
         }
     }
 }
