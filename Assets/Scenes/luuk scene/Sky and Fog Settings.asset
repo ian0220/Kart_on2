@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1663166350233731453
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf384b154398e341b6b29969c078198, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  quality:
+    m_OverrideState: 0
+    m_Value: 1
+  intensity:
+    m_OverrideState: 0
+    m_Value: 0
+  maximumVelocity:
+    m_OverrideState: 0
+    m_Value: 200
+  minimumVelocity:
+    m_OverrideState: 0
+    m_Value: 2
+  cameraMotionBlur:
+    m_OverrideState: 0
+    m_Value: 1
+  specialCameraClampMode:
+    m_OverrideState: 0
+    m_Value: 0
+  cameraVelocityClamp:
+    m_OverrideState: 0
+    m_Value: 0.05
+  cameraTranslationVelocityClamp:
+    m_OverrideState: 0
+    m_Value: 0.05
+  cameraRotationVelocityClamp:
+    m_OverrideState: 0
+    m_Value: 0.03
+  depthComparisonExtent:
+    m_OverrideState: 0
+    m_Value: 1
+  m_SampleCount:
+    m_OverrideState: 0
+    m_Value: 8
 --- !u!114 &-3443952973459711
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -152,6 +198,7 @@ MonoBehaviour:
   - {fileID: 8137105637576469771}
   - {fileID: 9113859987294497960}
   - {fileID: 4224966652335148754}
+  - {fileID: -1663166350233731453}
 --- !u!114 &804483272019888940
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -197,20 +244,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   indirectDiffuseLightingMultiplier:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 8.28
   indirectDiffuseLightingLayers:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 255
   reflectionLightingMultiplier:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 16.68
   reflectionLightingLayers:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 255
   reflectionProbeIntensityMultiplier:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &8137105637576469771
 MonoBehaviour:
   m_ObjectHideFlags: 3
