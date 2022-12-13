@@ -15,7 +15,7 @@ public class GuyScript : MonoBehaviour
 
     void Start()
     {
-        playerObject = GameObject.FindGameObjectWithTag("Player");
+        //playerObject = GameObject.FindGameObjectWithTag("Player");
         emotionObject = GameObject.FindGameObjectWithTag("EmotionBalk");
         turnObject1.SetActive(false);
         turnObject2.SetActive(true);
