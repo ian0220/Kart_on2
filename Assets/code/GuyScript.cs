@@ -8,13 +8,14 @@ public class GuyScript : MonoBehaviour
     [SerializeField] private GameObject playerObject;
     [SerializeField] private GameObject turnObject1;
     [SerializeField] private GameObject turnObject2;
+    [SerializeField] private Collider currentTarget;
     [SerializeField] private float guySpeed;
     [SerializeField] private bool walkin;
     private bool canBoost;
 
     void Start()
     {
-        playerObject = GameObject.FindGameObjectWithTag("Player");
+        //playerObject = GameObject.FindGameObjectWithTag("Player");
         emotionObject = GameObject.FindGameObjectWithTag("EmotionBalk");
         turnObject1.SetActive(false);
         turnObject2.SetActive(true);
@@ -73,5 +74,10 @@ public class GuyScript : MonoBehaviour
             turnObject1.SetActive(false);
             turnObject2.SetActive(true);
         }
+    }
+
+    public void TargetSelect(Collider targetCollider)
+    {
+        currentTarget = targetCollider;
     }
 }
