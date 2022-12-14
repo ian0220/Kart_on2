@@ -9,6 +9,10 @@ public class CarMovment : MonoBehaviour
     [SerializeField] private float m_DriftStrengt = 2;
     [SerializeField] float GrafetyForce = 5;
 
+    [Header("Player Bools")]
+    [SerializeField] private bool m_PlayerOne;
+    [SerializeField] private bool m_PlayerTwo;
+
     [Header("Drift")]
     [SerializeField] private float m_endtimer = 5;
     private float m_Driftto = 0;
@@ -38,8 +42,7 @@ public class CarMovment : MonoBehaviour
     [Header("CarArt")]
     [SerializeField] Transform m_CarArtTransform;
     [SerializeField] float m_yasARTCar;
-    private float m_YasCarArtGoTo;
-
+    private float m_YasCarArtGoTo;    
 
     [Header("private")]
     private bool OnGround;
@@ -100,33 +103,67 @@ public class CarMovment : MonoBehaviour
 
     private void ToDrifting()
     { 
-        // controleerd welke kand op de kijken met de drift
-        if (Input.GetKey(KeyCode.A) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
+        if (m_PlayerOne == true)
         {
-            m_Driftto = -10f;
-            m_YasCarArtGoTo = -m_yasARTCar;
-            IsDrifting = true;
-        }
-        else if (Input.GetKey(KeyCode.D) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
-        {
+            // controleerd welke kand op de kijken met de drift
+            if (Input.GetKey(KeyCode.A) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
+            {
+                m_Driftto = -10f;
+                m_YasCarArtGoTo = -m_yasARTCar;
+                IsDrifting = true;
+            }
+            else if (Input.GetKey(KeyCode.D) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
+            {
 
-            m_YasCarArtGoTo = m_yasARTCar;
-            m_Driftto = 10f;
-            IsDrifting = true;
+                m_YasCarArtGoTo = m_yasARTCar;
+                m_Driftto = 10f;
+                IsDrifting = true;
+            }
+            // laat de lerp nummer opnieuw beginnen zo dat die weer kan lerpen naar de juisten kant
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                Lerpnummer = 0;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                m_YasCarArtGoTo = 0f;
+                Lerpnummer = 0;
+            }
+            // lerp naar eem kant to 
+            m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
+            Lerpnummer += 0.5f * Time.deltaTime;
         }
-        // laat de lerp nummer opnieuw beginnen zo dat die weer kan lerpen naar de juisten kant
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+
+        if (m_PlayerTwo == true)
         {
-            Lerpnummer = 0;
+            // controleerd welke kand op de kijken met de drift
+            if (Input.GetKey(KeyCode.LeftArrow) && (Input.GetKey(KeyCode.RightShift)) && (!IsDrifting))
+            {
+                m_Driftto = -10f;
+                m_YasCarArtGoTo = -m_yasARTCar;
+                IsDrifting = true;
+            }
+            else if (Input.GetKey(KeyCode.RightArrow) && (Input.GetKey(KeyCode.RightShift)) && (!IsDrifting))
+            {
+
+                m_YasCarArtGoTo = m_yasARTCar;
+                m_Driftto = 10f;
+                IsDrifting = true;
+            }
+            // laat de lerp nummer opnieuw beginnen zo dat die weer kan lerpen naar de juisten kant
+            if (Input.GetKeyDown(KeyCode.RightShift))
+            {
+                Lerpnummer = 0;
+            }
+            if (Input.GetKeyUp(KeyCode.RightShift))
+            {
+                m_YasCarArtGoTo = 0f;
+                Lerpnummer = 0;
+            }
+            // lerp naar eem kant to 
+            m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
+            Lerpnummer += 0.5f * Time.deltaTime;
         }
-        if(Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            m_YasCarArtGoTo = 0f;
-            Lerpnummer = 0;
-        }
-        // lerp naar eem kant to 
-        m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
-        Lerpnummer += 0.5f * Time.deltaTime;
 
         
         if (IsDrifting)
