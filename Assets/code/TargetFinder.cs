@@ -15,7 +15,7 @@ public class TargetFinder : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-            crowd.TargetSelect(null);
+            crowd.TargetSelect(gameObject.GetComponent<Collider>());
     }
 }
 

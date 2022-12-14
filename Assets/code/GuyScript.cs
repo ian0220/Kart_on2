@@ -5,7 +5,7 @@ using UnityEngine;
 public class GuyScript : MonoBehaviour
 {
     [SerializeField] private GameObject emotionObject;
-    [SerializeField] private GameObject playerObject;
+    //[SerializeField] private GameObject playerObject;
     [SerializeField] private GameObject turnObject1;
     [SerializeField] private GameObject turnObject2;
     [SerializeField] private Collider currentTarget;
@@ -27,13 +27,13 @@ public class GuyScript : MonoBehaviour
     {
         if (walkin == true)
         {
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, playerObject.transform.position, guySpeed);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, currentTarget.transform.position, guySpeed);
         }
 
         // https://answers.unity.com/questions/161053/making-an-object-rotate-to-face-another-object.html
         int damping = 2;
 
-        var lookPos = playerObject.transform.position - transform.position;
+        var lookPos = currentTarget.transform.position - transform.position;
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
