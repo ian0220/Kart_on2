@@ -42,7 +42,12 @@ public class CarMovment : MonoBehaviour
     [Header("CarArt")]
     [SerializeField] Transform m_CarArtTransform;
     [SerializeField] float m_yasARTCar;
-    private float m_YasCarArtGoTo;    
+    private float m_YasCarArtGoTo;
+    
+    [Header("WheelTurn")]
+    [SerializeField] Transform m_RightWheel;
+    [SerializeField] Transform m_LeftWheel;
+    [SerializeField] float m_turnAmmount;
 
     [Header("private")]
     private bool OnGround;
@@ -72,6 +77,22 @@ public class CarMovment : MonoBehaviour
             Boost2_0();
         }
         Priten();
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            m_RightWheel.localRotation = Quaternion.Lerp(m_RightWheel.localRotation, Quaternion.Euler(new Vector3(0, -m_turnAmmount, 0)), 0.5f);
+            m_LeftWheel.localRotation = Quaternion.Lerp(m_LeftWheel.localRotation, Quaternion.Euler(new Vector3(0, -m_turnAmmount, 0)), 0.5f);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            m_RightWheel.localRotation = Quaternion.Lerp(m_RightWheel.localRotation, Quaternion.Euler(new Vector3(0, m_turnAmmount, 0)), 0.5f);
+            m_LeftWheel.localRotation = Quaternion.Lerp(m_LeftWheel.localRotation, Quaternion.Euler(new Vector3(0, m_turnAmmount, 0)), 0.5f);
+        }
+        else
+        {
+            m_RightWheel.localRotation = Quaternion.Lerp(m_RightWheel.localRotation, Quaternion.Euler(new Vector3(0, 0, 0)), 0.5f);
+            m_LeftWheel.localRotation = Quaternion.Lerp(m_LeftWheel.localRotation, Quaternion.Euler(new Vector3(0, 0, 0)), 0.5f);
+        }
     }
 
     private void SetOverData()
