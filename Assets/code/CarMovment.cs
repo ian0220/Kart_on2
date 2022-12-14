@@ -56,6 +56,7 @@ public class CarMovment : MonoBehaviour
 
     void Update()
     {
+        // welke kant die op gaat drijen en hoe die rijd
         m_TurnInput = Input.GetAxis("Horizontal");
         SetOverData();
 
@@ -72,14 +73,15 @@ public class CarMovment : MonoBehaviour
 
     private void SetOverData()
     {
+        // laat de movment bepalen in wele status het zit
         if (OnGround && (!IsDrifting))
         {
             m_TurnStrength = m_NormalPlayermovment.TuringSpeed;
             m_Speed = m_NormalPlayermovment.Speed;
             m_MaxSpeed = m_NormalPlayermovment.MaxSpeed;
-            if(IsDrifting)
+            if(GiveBoost)
             {
-                m_MaxSpeed += 400f;
+                m_MaxSpeed += SetBoostSpeed;
             }
         }
         else if (OnGround && (IsDrifting))
@@ -97,7 +99,8 @@ public class CarMovment : MonoBehaviour
     }
 
     private void ToDrifting()
-    {
+    { 
+        // controleerd welke kand op de kijken met de drift
         if (Input.GetKey(KeyCode.A) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
         {
             m_Driftto = -10f;
@@ -111,6 +114,7 @@ public class CarMovment : MonoBehaviour
             m_Driftto = 10f;
             IsDrifting = true;
         }
+        // laat de lerp nummer opnieuw beginnen zo dat die weer kan lerpen naar de juisten kant
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             Lerpnummer = 0;
@@ -120,10 +124,11 @@ public class CarMovment : MonoBehaviour
             m_YasCarArtGoTo = 0f;
             Lerpnummer = 0;
         }
-
+        // lerp naar eem kant to 
         m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
         Lerpnummer += 0.5f * Time.deltaTime;
 
+        
         if (IsDrifting)
         {
             Drifting(m_Driftto);
@@ -136,6 +141,7 @@ public class CarMovment : MonoBehaviour
         CheckOnGround();
                            
         ForwardMovement();
+        // als die niet op de grond zit dan geeft die meer grafetie force 
         if (!OnGround)
         {
             m_RB.AddForce(transform.up * -GrafetyForce * 100f);
@@ -157,7 +163,6 @@ public class CarMovment : MonoBehaviour
 
     private void ForwardMovement()
     {
-
         if (m_RB.velocity.magnitude < m_MaxSpeed || (GiveBoost))
         {
 
@@ -167,7 +172,7 @@ public class CarMovment : MonoBehaviour
 
     private void Drifting(float _TuringTo)
     {
-
+        // drift is ingedrukt dan geeft die tijd mee en lerpt die naar zij kant zo dra los kijk og boost mag geven
         if (Input.GetKey(KeyCode.LeftShift))
         {
             m_timer += Time.deltaTime;
@@ -196,11 +201,15 @@ public class CarMovment : MonoBehaviour
     //    yield return null;
     //}
 
-    public void Boost2_0()
+    /// <summary>
+    /// boost de car 
+    /// </summary>
+
+    public void Boost2_0() 
     {
         if(m_timerboost <= m_BoostTime && !IsDrifting)
         {
-            
+            // zet boost tijd en boost als de tijd over doe is reset die het
             m_timerboost += Time.deltaTime;
             boostspeed = SetBoostSpeed;
         }
@@ -213,7 +222,7 @@ public class CarMovment : MonoBehaviour
         m_Speed += boostspeed;
     }
     private void OfTheWorld()
-    {
+    { // als van de wereld repand
         if (m_RB.transform.position.y < -5)
         {
             m_RB.transform.position = new Vector3(0, 5, 0);
