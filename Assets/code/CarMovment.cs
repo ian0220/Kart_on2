@@ -14,11 +14,14 @@ public class CarMovment : MonoBehaviour
     private float m_Driftto = 0;
     private bool IsDrifting = false;
     private float m_timer;
-    private bool GiveBoost = false;
-    [SerializeField] float SetBoostSpeed;
-    [SerializeField] float m_BoostTime = 3f;
     [SerializeField] int m_timeInfrimeLerp = 5;
     [SerializeField] float m_HowLongToLerp = 50f;
+
+    [Header("Boost")]
+    private bool GiveBoost = false;
+    [SerializeField] float SetBoostSpeed;
+    [SerializeField] float m_BoostTime = 0;
+    private float m_timerboost;
 
     [Header("MovmentData")]
     [SerializeField] private ScriptelbelPlayerMovment m_NormalPlayermovment;
@@ -60,6 +63,11 @@ public class CarMovment : MonoBehaviour
         transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
         ToDrifting();
         OfTheWorld();
+        if(GiveBoost)
+        {
+            Boost2_0();
+        }
+        Priten();
     }
 
     private void SetOverData()
@@ -69,6 +77,10 @@ public class CarMovment : MonoBehaviour
             m_TurnStrength = m_NormalPlayermovment.TuringSpeed;
             m_Speed = m_NormalPlayermovment.Speed;
             m_MaxSpeed = m_NormalPlayermovment.MaxSpeed;
+            if(IsDrifting)
+            {
+                m_MaxSpeed += 400f;
+            }
         }
         else if (OnGround && (IsDrifting))
         {
@@ -111,7 +123,7 @@ public class CarMovment : MonoBehaviour
 
         m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
         Lerpnummer += 0.5f * Time.deltaTime;
-        print(Lerpnummer);
+
         if (IsDrifting)
         {
             Drifting(m_Driftto);
@@ -122,7 +134,7 @@ public class CarMovment : MonoBehaviour
     private void FixedUpdate()
     {
         CheckOnGround();
-
+                           
         ForwardMovement();
         if (!OnGround)
         {
@@ -145,41 +157,60 @@ public class CarMovment : MonoBehaviour
 
     private void ForwardMovement()
     {
-        print(m_RB.velocity.magnitude);
+
         if (m_RB.velocity.magnitude < m_MaxSpeed || (GiveBoost))
         {
+
             m_RB.AddForce(transform.forward * m_Speed * Time.fixedDeltaTime * 1000f);
         }
     }
 
     private void Drifting(float _TuringTo)
     {
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             m_timer += Time.deltaTime;
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));
         }
         else
-        { 
-            if (m_timer >= m_endtimer && (!GiveBoost))
+        {           
+            if (m_timer >= m_endtimer)
             {
-                StartCoroutine(Boost(SetBoostSpeed));
+                GiveBoost = true;
             }
             m_timer = 0;
             IsDrifting = false;
         }      
     }
 
-    public IEnumerator Boost(float _SetBoostSpeed)
+    //public IEnumerator Boost(float _SetBoostSpeed)
+    //{
+    //    GiveBoost = true;
+    //    boostspeed = _SetBoostSpeed;
+    //    m_Speed += boostspeed;
+    //    yield return new WaitForSeconds(m_BoostTime);
+    //    GiveBoost = false;
+    //    boostspeed = 0;
+    //    m_Speed += boostspeed;
+    //    yield return null;
+    //}
+
+    public void Boost2_0()
     {
-        GiveBoost = true;
-        boostspeed = _SetBoostSpeed;
+        if(m_timerboost <= m_BoostTime && !IsDrifting)
+        {
+            
+            m_timerboost += Time.deltaTime;
+            boostspeed = SetBoostSpeed;
+        }
+        else
+        {
+            boostspeed = 0;
+            m_timerboost = 0;
+            GiveBoost = false;
+        }
         m_Speed += boostspeed;
-        yield return new WaitForSeconds(m_BoostTime);
-        GiveBoost = false;
-        boostspeed = 0;
-        m_Speed += boostspeed;
-        yield return null;
     }
     private void OfTheWorld()
     {
@@ -187,5 +218,16 @@ public class CarMovment : MonoBehaviour
         {
             m_RB.transform.position = new Vector3(0, 5, 0);
         }
+    }
+
+    private void Priten()
+    {
+        print(GiveBoost);
+        print(m_timerboost);
+        //print(m_Speed);
+        //print(m_RB.velocity.magnitude);
+        //print(Lerpnummer);
+        // print(m_timer);
+        // print(m_RB.velocity.magnitude);
     }
 }
