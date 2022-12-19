@@ -40,6 +40,10 @@ public class CarMovment : MonoBehaviour
     [SerializeField] float m_yasARTCar;
     private float m_YasCarArtGoTo;
 
+    //[Header("WheelTurn")]
+    //[SerializeField] Transform m_RightWheel;
+    //[SerializeField] Transform m_LeftWheel;
+    //[SerializeField] float m_turnAmmount;
 
     [Header("private")]
     private bool OnGround;
@@ -64,11 +68,27 @@ public class CarMovment : MonoBehaviour
         transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
         ToDrifting();
         OfTheWorld();
-        if(GiveBoost)
+        if (GiveBoost)
         {
             Boost2_0();
         }
         Priten();
+
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    m_RightWheel.localRotation = Quaternion.Lerp(m_RightWheel.localRotation, Quaternion.Euler(new Vector3(0, -m_turnAmmount, 0)), 0.5f);
+        //    m_LeftWheel.localRotation = Quaternion.Lerp(m_LeftWheel.localRotation, Quaternion.Euler(new Vector3(0, -m_turnAmmount, 0)), 0.5f);
+        //}
+        //else if (Input.GetKey(KeyCode.D))
+        //{
+        //    m_RightWheel.localRotation = Quaternion.Lerp(m_RightWheel.localRotation, Quaternion.Euler(new Vector3(0, m_turnAmmount, 0)), 0.5f);
+        //    m_LeftWheel.localRotation = Quaternion.Lerp(m_LeftWheel.localRotation, Quaternion.Euler(new Vector3(0, m_turnAmmount, 0)), 0.5f);
+        //}
+        //else
+        //{
+        //    m_RightWheel.localRotation = Quaternion.Lerp(m_RightWheel.localRotation, Quaternion.Euler(new Vector3(0, 0, 0)), 0.5f);
+        //    m_LeftWheel.localRotation = Quaternion.Lerp(m_LeftWheel.localRotation, Quaternion.Euler(new Vector3(0, 0, 0)), 0.5f);
+        //}
     }
 
     private void SetOverData()
@@ -79,7 +99,7 @@ public class CarMovment : MonoBehaviour
             m_TurnStrength = m_NormalPlayermovment.TuringSpeed;
             m_Speed = m_NormalPlayermovment.Speed;
             m_MaxSpeed = m_NormalPlayermovment.MaxSpeed;
-            if(GiveBoost)
+            if (GiveBoost)
             {
                 m_MaxSpeed += SetBoostSpeed;
             }
@@ -99,7 +119,7 @@ public class CarMovment : MonoBehaviour
     }
 
     private void ToDrifting()
-    { 
+    {
         // controleerd welke kand op de kijken met de drift
         if (Input.GetKey(KeyCode.A) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
         {
@@ -115,11 +135,11 @@ public class CarMovment : MonoBehaviour
             IsDrifting = true;
         }
         // laat de lerp nummer opnieuw beginnen zo dat die weer kan lerpen naar de juisten kant
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Lerpnummer = 0;
         }
-        if(Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             m_YasCarArtGoTo = 0f;
             Lerpnummer = 0;
@@ -128,7 +148,6 @@ public class CarMovment : MonoBehaviour
         m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
         Lerpnummer += 0.5f * Time.deltaTime;
 
-        
         if (IsDrifting)
         {
             Drifting(m_Driftto);
@@ -139,7 +158,7 @@ public class CarMovment : MonoBehaviour
     private void FixedUpdate()
     {
         CheckOnGround();
-                           
+
         ForwardMovement();
         // als die niet op de grond zit dan geeft die meer grafetie force 
         if (!OnGround)
@@ -179,14 +198,14 @@ public class CarMovment : MonoBehaviour
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));
         }
         else
-        {           
+        {
             if (m_timer >= m_endtimer)
             {
                 GiveBoost = true;
             }
             m_timer = 0;
             IsDrifting = false;
-        }      
+        }
     }
 
     //public IEnumerator Boost(float _SetBoostSpeed)
@@ -205,9 +224,9 @@ public class CarMovment : MonoBehaviour
     /// boost de car 
     /// </summary>
 
-    public void Boost2_0() 
+    public void Boost2_0()
     {
-        if(m_timerboost <= m_BoostTime && !IsDrifting)
+        if (m_timerboost <= m_BoostTime && !IsDrifting)
         {
             // zet boost tijd en boost als de tijd over doe is reset die het
             m_timerboost += Time.deltaTime;

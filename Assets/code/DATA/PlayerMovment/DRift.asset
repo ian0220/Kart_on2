@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DRift
   m_EditorClassIdentifier: Assembly-CSharp::ScriptelbelPlayerMovment
   MaxSpeed: 120
-  Speed: 100
-  TuringSpeed: 2.5
+  Speed: 120
+  TuringSpeed: 7
