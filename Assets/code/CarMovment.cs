@@ -52,6 +52,7 @@ public class CarMovment : MonoBehaviour
     private float m_Speed;
     private float m_MaxSpeed;
     private float Lerpnummer = 0;
+    private bool OnGrass = false;
     void Start()
     {
         m_RB.transform.parent = null;
@@ -103,6 +104,10 @@ public class CarMovment : MonoBehaviour
             {
                 m_MaxSpeed += SetBoostSpeed;
             }
+        }
+        else if(OnGround && (!IsDrifting) && (OnGrass))
+        {
+
         }
         else if (OnGround && (IsDrifting))
         {
@@ -177,6 +182,10 @@ public class CarMovment : MonoBehaviour
         {
             OnGround = true;
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        }
+        else if(Physics.Raycast(BeginPointRay.position, -transform.up,out hit,RayRange, NothingLayer))
+        {
+            
         }
     }
 
