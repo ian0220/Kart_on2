@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741bafaa4c0446045b5f612e7548b701, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: Assembly-CSharp::ScriptelbelPlayerMovment
-  MaxSpeed: 111111
-  Speed: 111111
-  TuringSpeed: 10
+  MaxSpeed: 70
+  Speed: 70
+  TuringSpeed: 8

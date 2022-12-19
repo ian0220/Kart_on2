@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class CarSelection : MonoBehaviour
 {
+    [SerializeField] private int carNumber;
     [SerializeField] private float moveAmmount;
     [SerializeField] private float minMoveAmmount;
     [SerializeField] private float maxMoveAmmount;
+
+    private void Start()
+    {
+        carNumber = 0;
+    }
 
     void Update()
     {
@@ -24,10 +30,12 @@ public class CarSelection : MonoBehaviour
     public void GoLeft()
     {
         gameObject.transform.position = new Vector3(transform.position.x - moveAmmount, transform.position.y, transform.position.z);
+        carNumber--;
     }
 
     public void GoRight()
     {
         gameObject.transform.position = new Vector3(transform.position.x + moveAmmount, transform.position.y, transform.position.z);
+        carNumber++;
     }
 }

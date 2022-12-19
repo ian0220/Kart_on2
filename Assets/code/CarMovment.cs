@@ -54,6 +54,7 @@ public class CarMovment : MonoBehaviour
     private float m_MaxSpeed;
     private float Lerpnummer = 0;
     private bool OnGrass = false;
+
     void Start()
     {
         m_RB.transform.parent = null;
@@ -96,7 +97,7 @@ public class CarMovment : MonoBehaviour
     private void SetOverData()
     {
         // laat de movment bepalen in wele status het zit
-        if (OnGround && (!IsDrifting))
+        if (OnGround && (!IsDrifting) && (!OnGrass))
         {
             m_TurnStrength = m_NormalPlayermovment.TuringSpeed;
             m_Speed = m_NormalPlayermovment.Speed;
@@ -112,13 +113,13 @@ public class CarMovment : MonoBehaviour
             m_Speed = m_GrassMovement.Speed;
             m_MaxSpeed = m_GrassMovement.MaxSpeed;
         }
-        else if (OnGround && (IsDrifting))
+        else if (OnGround && (IsDrifting) && (!OnGrass))
         {
             m_TurnStrength = m_DriftMovment.TuringSpeed;
             m_Speed = m_DriftMovment.Speed;
             m_MaxSpeed = m_DriftMovment.MaxSpeed;
         }
-        else if (!OnGround && (!IsDrifting))
+        else if (!OnGround && (!IsDrifting) && (!OnGrass))
         {
             m_TurnStrength = m_FlyingMovement.TuringSpeed;
             m_Speed = m_FlyingMovement.Speed;
@@ -179,18 +180,22 @@ public class CarMovment : MonoBehaviour
     {
         // schiet een race cats naar beneden om te kijken of die de layer raakt als dat zo is dan voert die de if uit
         OnGround = false;
+        OnGrass = false;
         RaycastHit hit;
 
         if (Physics.Raycast(BeginPointRay.position, -transform.up, out hit, RayRange, FloorLayer))
         {
             OnGround = true;
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-        }
-        else if(Physics.Raycast(BeginPointRay.position, -transform.up,out hit,RayRange, GrassLayer))
+        }        
+        else if (Physics.Raycast(BeginPointRay.position, -transform.up, out hit, RayRange, GrassLayer))
         {
+            Debug.Log("Grass");
             OnGrass = true;
+            OnGround = true;
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
+        //print(hit);
     }
 
     private void ForwardMovement()
@@ -263,12 +268,13 @@ public class CarMovment : MonoBehaviour
 
     private void Priten()
     {
-        print(GiveBoost);
-        print(m_timerboost);
+        //print(GiveBoost);
+        //print(m_timerboost);
         //print(m_Speed);
         //print(m_RB.velocity.magnitude);
         //print(Lerpnummer);
         // print(m_timer);
         // print(m_RB.velocity.magnitude);
+        print(OnGround);
     }
 }
