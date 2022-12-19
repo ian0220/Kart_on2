@@ -27,11 +27,12 @@ public class CarMovment : MonoBehaviour
     [SerializeField] private ScriptelbelPlayerMovment m_NormalPlayermovment;
     [SerializeField] private ScriptelbelPlayerMovment m_DriftMovment;
     [SerializeField] private ScriptelbelPlayerMovment m_FlyingMovement;
+    [SerializeField] private ScriptelbelPlayerMovment m_GrassMovement;
     private float boostspeed;
 
     [Header("Raycast")]
     [SerializeField] LayerMask FloorLayer;
-    [SerializeField] LayerMask NothingLayer;
+    [SerializeField] LayerMask GrassLayer;
     [SerializeField] float RayRange;
     [SerializeField] Transform BeginPointRay;
 
@@ -107,7 +108,9 @@ public class CarMovment : MonoBehaviour
         }
         else if(OnGround && (!IsDrifting) && (OnGrass))
         {
-
+            m_TurnStrength = m_GrassMovement.TuringSpeed;
+            m_Speed = m_GrassMovement.Speed;
+            m_MaxSpeed = m_GrassMovement.MaxSpeed;
         }
         else if (OnGround && (IsDrifting))
         {
@@ -183,9 +186,10 @@ public class CarMovment : MonoBehaviour
             OnGround = true;
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
-        else if(Physics.Raycast(BeginPointRay.position, -transform.up,out hit,RayRange, NothingLayer))
+        else if(Physics.Raycast(BeginPointRay.position, -transform.up,out hit,RayRange, GrassLayer))
         {
-            
+            OnGrass = true;
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
     }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5987.5786, g: 3827.69, b: 2820.8088, a: 1}
+  m_IndirectSpecularColor: {r: 5886.905, g: 3826.8442, b: 2957.1057, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -372,8 +372,6 @@ MonoBehaviour:
   m_RB: {fileID: 698189163}
   m_DriftStrengt: 5
   GrafetyForce: 20
-  m_PlayerOne: 0
-  m_PlayerTwo: 0
   m_endtimer: 5
   m_timeInfrimeLerp: 600
   m_HowLongToLerp: 100
@@ -383,12 +381,13 @@ MonoBehaviour:
     type: 2}
   m_DriftMovment: {fileID: 11400000, guid: 6015aacfab3e35049863de36b1e8dc68, type: 2}
   m_FlyingMovement: {fileID: 11400000, guid: b857c24413008f04d9fbd93a83d277c3, type: 2}
+  m_GrassMovement: {fileID: 11400000, guid: e4c35e731a64fcc4e93c4ec53103b3b9, type: 2}
   FloorLayer:
     serializedVersion: 2
     m_Bits: 128
-  NothingLayer:
+  GrassLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   RayRange: 1
   BeginPointRay: {fileID: 1564210475}
   m_CarArtTransform: {fileID: 969467438}
