@@ -6,6 +6,7 @@ public class AddforceSign : MonoBehaviour
 {
     public float thrust = 1.0f;
     public Rigidbody rb;
+    public GameObject sign;
 
     private void Update()
     {
@@ -15,7 +16,7 @@ public class AddforceSign : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             { 
-                if (hit.transform.name == "TestSign")
+                if (hit.transform.gameObject == sign)
                 {
                     rb = GetComponent<Rigidbody>();
                     rb.AddForce(0, 0, thrust, ForceMode.Impulse);
@@ -23,5 +24,12 @@ public class AddforceSign : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void blah()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.AddForce(0, 0, thrust, ForceMode.Impulse);
+        Debug.Log("ZURRZuzuuzr");
     }
 }
