@@ -25,11 +25,4 @@ public class AddforceSign : MonoBehaviour
             }
         }
     }
-
-    public void blah()
-    {
-        rb = GetComponent<Rigidbody>();
-        rb.AddForce(0, 0, thrust, ForceMode.Impulse);
-        Debug.Log("ZURRZuzuuzr");
-    }
 }
