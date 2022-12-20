@@ -24,10 +24,11 @@ public class CarMovment : MonoBehaviour
     private float m_timerboost;
 
     [Header("MovmentData")]
-    [SerializeField] private ScriptelbelPlayerMovment m_NormalPlayermovment;
-    [SerializeField] private ScriptelbelPlayerMovment m_DriftMovment;
+    [SerializeField] private ScriptelbelPlayerMovment m_NormalPlayermovement;
+    [SerializeField] private ScriptelbelPlayerMovment m_DriftMovement;
     [SerializeField] private ScriptelbelPlayerMovment m_FlyingMovement;
     [SerializeField] private ScriptelbelPlayerMovment m_GrassMovement;
+    [SerializeField] private ScriptelbelPlayerMovment m_GrassDriftMovement;
     private float boostspeed;
 
     [Header("Raycast")]
@@ -99,9 +100,9 @@ public class CarMovment : MonoBehaviour
         // laat de movment bepalen in wele status het zit
         if (OnGround && (!IsDrifting) && (!OnGrass))
         {
-            m_TurnStrength = m_NormalPlayermovment.TuringSpeed;
-            m_Speed = m_NormalPlayermovment.Speed;
-            m_MaxSpeed = m_NormalPlayermovment.MaxSpeed;
+            m_TurnStrength = m_NormalPlayermovement.TuringSpeed;
+            m_Speed = m_NormalPlayermovement.Speed;
+            m_MaxSpeed = m_NormalPlayermovement.MaxSpeed;
             if (GiveBoost)
             {
                 m_MaxSpeed += SetBoostSpeed;
@@ -115,9 +116,15 @@ public class CarMovment : MonoBehaviour
         }
         else if (OnGround && (IsDrifting) && (!OnGrass))
         {
-            m_TurnStrength = m_DriftMovment.TuringSpeed;
-            m_Speed = m_DriftMovment.Speed;
-            m_MaxSpeed = m_DriftMovment.MaxSpeed;
+            m_TurnStrength = m_DriftMovement.TuringSpeed;
+            m_Speed = m_DriftMovement.Speed;
+            m_MaxSpeed = m_DriftMovement.MaxSpeed;
+        }
+        else if (OnGround && (IsDrifting) && (OnGrass))
+        {
+            m_TurnStrength = m_GrassDriftMovement.TuringSpeed;
+            m_Speed = m_GrassDriftMovement.Speed;
+            m_MaxSpeed = m_GrassDriftMovement.MaxSpeed;
         }
         else if (!OnGround && (!IsDrifting) && (!OnGrass))
         {

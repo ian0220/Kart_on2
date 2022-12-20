@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5464.152, g: 3563.2974, b: 2450.4768, a: 1}
+  m_IndirectSpecularColor: {r: 5503.6245, g: 3540.2153, b: 2337.6292, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2273,9 +2273,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7423491a5c7f6594db2dea03bed74617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  racingCars:
+  - {fileID: 1977443262}
+  - {fileID: 1033457172}
+  - {fileID: 1611804181}
+  - {fileID: 1485489840}
+  - {fileID: 121324104}
+  carNumber: 0
   moveAmmount: 4
   minMoveAmmount: 12
   maxMoveAmmount: 28
+  currentCar: {fileID: 0}
 --- !u!1 &1371722976
 GameObject:
   m_ObjectHideFlags: 0
