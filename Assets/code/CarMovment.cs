@@ -24,14 +24,16 @@ public class CarMovment : MonoBehaviour
     private float m_timerboost;
 
     [Header("MovmentData")]
-    [SerializeField] private ScriptelbelPlayerMovment m_NormalPlayermovment;
-    [SerializeField] private ScriptelbelPlayerMovment m_DriftMovment;
+    [SerializeField] private ScriptelbelPlayerMovment m_NormalPlayermovement;
+    [SerializeField] private ScriptelbelPlayerMovment m_DriftMovement;
     [SerializeField] private ScriptelbelPlayerMovment m_FlyingMovement;
+    [SerializeField] private ScriptelbelPlayerMovment m_GrassMovement;
+    [SerializeField] private ScriptelbelPlayerMovment m_GrassDriftMovement;
     private float boostspeed;
 
     [Header("Raycast")]
     [SerializeField] LayerMask FloorLayer;
-    [SerializeField] LayerMask NothingLayer;
+    [SerializeField] LayerMask GrassLayer;
     [SerializeField] float RayRange;
     [SerializeField] Transform BeginPointRay;
 
@@ -52,6 +54,8 @@ public class CarMovment : MonoBehaviour
     private float m_Speed;
     private float m_MaxSpeed;
     private float Lerpnummer = 0;
+    private bool OnGrass = false;
+
     void Start()
     {
         m_RB.transform.parent = null;
@@ -94,23 +98,35 @@ public class CarMovment : MonoBehaviour
     private void SetOverData()
     {
         // laat de movment bepalen in wele status het zit
-        if (OnGround && (!IsDrifting))
+        if (OnGround && (!IsDrifting) && (!OnGrass))
         {
-            m_TurnStrength = m_NormalPlayermovment.TuringSpeed;
-            m_Speed = m_NormalPlayermovment.Speed;
-            m_MaxSpeed = m_NormalPlayermovment.MaxSpeed;
+            m_TurnStrength = m_NormalPlayermovement.TuringSpeed;
+            m_Speed = m_NormalPlayermovement.Speed;
+            m_MaxSpeed = m_NormalPlayermovement.MaxSpeed;
             if (GiveBoost)
             {
                 m_MaxSpeed += SetBoostSpeed;
             }
         }
-        else if (OnGround && (IsDrifting))
+        else if(OnGround && (!IsDrifting) && (OnGrass))
         {
-            m_TurnStrength = m_DriftMovment.TuringSpeed;
-            m_Speed = m_DriftMovment.Speed;
-            m_MaxSpeed = m_DriftMovment.MaxSpeed;
+            m_TurnStrength = m_GrassMovement.TuringSpeed;
+            m_Speed = m_GrassMovement.Speed;
+            m_MaxSpeed = m_GrassMovement.MaxSpeed;
         }
-        else if (!OnGround && (!IsDrifting))
+        else if (OnGround && (IsDrifting) && (!OnGrass))
+        {
+            m_TurnStrength = m_DriftMovement.TuringSpeed;
+            m_Speed = m_DriftMovement.Speed;
+            m_MaxSpeed = m_DriftMovement.MaxSpeed;
+        }
+        else if (OnGround && (IsDrifting) && (OnGrass))
+        {
+            m_TurnStrength = m_GrassDriftMovement.TuringSpeed;
+            m_Speed = m_GrassDriftMovement.Speed;
+            m_MaxSpeed = m_GrassDriftMovement.MaxSpeed;
+        }
+        else if (!OnGround && (!IsDrifting) && (!OnGrass))
         {
             m_TurnStrength = m_FlyingMovement.TuringSpeed;
             m_Speed = m_FlyingMovement.Speed;
@@ -171,13 +187,22 @@ public class CarMovment : MonoBehaviour
     {
         // schiet een race cats naar beneden om te kijken of die de layer raakt als dat zo is dan voert die de if uit
         OnGround = false;
+        OnGrass = false;
         RaycastHit hit;
 
         if (Physics.Raycast(BeginPointRay.position, -transform.up, out hit, RayRange, FloorLayer))
         {
             OnGround = true;
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        }        
+        else if (Physics.Raycast(BeginPointRay.position, -transform.up, out hit, RayRange, GrassLayer))
+        {
+            Debug.Log("Grass");
+            OnGrass = true;
+            OnGround = true;
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
         }
+        //print(hit);
     }
 
     private void ForwardMovement()
@@ -250,12 +275,13 @@ public class CarMovment : MonoBehaviour
 
     private void Priten()
     {
-        print(GiveBoost);
-        print(m_timerboost);
+        //print(GiveBoost);
+        //print(m_timerboost);
         //print(m_Speed);
         //print(m_RB.velocity.magnitude);
         //print(Lerpnummer);
         // print(m_timer);
         // print(m_RB.velocity.magnitude);
+        print(OnGround);
     }
 }
