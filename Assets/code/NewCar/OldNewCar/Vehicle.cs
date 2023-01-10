@@ -31,7 +31,7 @@ public class Vehicle : MonoBehaviour
     {
         foreach(Wheel w in wheels)
         {
-            w.Steer(horInput);
+            w.Steer(horInput * power);
             w.Accelerate(verInput * power);
             w.UpdatePosition();
         }
