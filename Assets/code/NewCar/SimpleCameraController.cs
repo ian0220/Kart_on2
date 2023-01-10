@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SimpleCameraController : MonoBehaviour
-{
-    // tutorial used: https://www.youtube.com/watch?v=j6_SMdWeGFI
-
+{ 
     public Transform objectToFollow;
     public Vector3 offset;
     public float followSpeed = 10f;
-    public float lookSpeed = 10f;
+    public float lookSpeed = 10f;    
 
     private void FixedUpdate()
     {
