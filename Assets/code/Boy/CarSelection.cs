@@ -83,7 +83,7 @@ public class CarSelection : MonoBehaviour
             carNumber--;
         }
 
-        Debug.Log("left");
+       // Debug.Log("left");
     }
 
     public void GoRight()
@@ -106,7 +106,7 @@ public class CarSelection : MonoBehaviour
             MoveCamera();
             carNumber++;
         }
-        Debug.Log("right");
+        //Debug.Log("right");
     }
 
     public void SelectCar()
@@ -116,7 +116,7 @@ public class CarSelection : MonoBehaviour
 
     public void MoveCamera()
     {
-        //
+        // in update gaat die lerpen
         moveToTarget = true;
     }
 }
