@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Finsh
   - CheckPoint
+  - EmotionBalk
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Grass
   - Water
   - UI
   - Car
