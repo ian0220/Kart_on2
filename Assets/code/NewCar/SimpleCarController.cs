@@ -26,7 +26,7 @@ public class SimpleCarController : MonoBehaviour
     public void GetInput()
     {
         horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        //verticalInput = Input.GetAxis("Vertical");
     }
 
     private void Steer()
@@ -38,8 +38,8 @@ public class SimpleCarController : MonoBehaviour
 
     private void Accelerate()
     {
-        frontDriverW.motorTorque = verticalInput * motorForce;
-        frontPassengerW.motorTorque = verticalInput * motorForce;
+        frontDriverW.motorTorque = motorForce;
+        frontPassengerW.motorTorque = motorForce;
     }
 
     private void UpdateWheelPoses()
@@ -56,6 +56,9 @@ public class SimpleCarController : MonoBehaviour
         Quaternion rotation = transform.rotation;
 
         wheelCollider.GetWorldPose(out position, out rotation);
+
+        transform.position = position;
+        transform.rotation = rotation;
     }
 
 
