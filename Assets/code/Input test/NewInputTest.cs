@@ -25,6 +25,8 @@ public class NewInputTest : MonoBehaviour
     {
         Vector2 direction = context.ReadValue<Vector2>();
 
+
+        
       //  Debug.Log(direction);
     }
 }

@@ -17,6 +17,8 @@ public class CarSelection : MonoBehaviour
     private float LerpOutput;
     public Button ArrowLeft;
     public Button ArrowRight;
+    [SerializeField] private Button MiddleButton;
+
 
 
 
@@ -24,6 +26,7 @@ public class CarSelection : MonoBehaviour
     {
         carNumber = 0;
         point = transform.position;
+        SelectCar();
     }
 
     void Update()
@@ -55,6 +58,8 @@ public class CarSelection : MonoBehaviour
                 transform.position = point;
                 ArrowLeft.interactable = true;
                 ArrowRight.interactable = true;
+                MiddleButton.Select();
+                SelectCar();
             }
 
             
