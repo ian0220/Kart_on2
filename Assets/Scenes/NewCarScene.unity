@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5500.4546, g: 3910.4907, b: 3474.4224, a: 1}
+  m_IndirectSpecularColor: {r: 5499.898, g: 3910.0278, b: 3473.8755, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -484,15 +484,15 @@ WheelCollider:
   m_GameObject: {fileID: 259033553}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 3
+  m_Radius: 2.5
   m_SuspensionSpring:
-    spring: 90000
-    damper: 9000
+    spring: 3000
+    damper: 300
     targetPosition: 1
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 2
   m_ForceAppPointDistance: 0
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -860,15 +860,15 @@ WheelCollider:
   m_GameObject: {fileID: 414416043}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 3
+  m_Radius: 2.5
   m_SuspensionSpring:
-    spring: 90000
-    damper: 9000
+    spring: 3000
+    damper: 300
     targetPosition: 1
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 2
   m_ForceAppPointDistance: 0
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -1542,8 +1542,16 @@ MonoBehaviour:
   frontPassengerT: {fileID: 2114120765}
   rearDriverT: {fileID: 1112613981}
   rearPassengerT: {fileID: 1870678817}
-  maxSteerAngle: 30
-  motorForce: 5000
+  rayRange: 0
+  maxSteerAngle: 40
+  speed: 1000
+  grassSpeed: 700
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  grassLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &818160943
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1555,7 +1563,7 @@ Rigidbody:
   m_Mass: 1500
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_CenterOfMass: {x: 0, y: -1, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -1564,7 +1572,7 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1612,15 +1620,15 @@ WheelCollider:
   m_GameObject: {fileID: 824025792}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 3
+  m_Radius: 2.5
   m_SuspensionSpring:
-    spring: 90000
-    damper: 9000
+    spring: 3000
+    damper: 300
     targetPosition: 1
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 2
   m_ForceAppPointDistance: 0
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -2006,6 +2014,7 @@ GameObject:
   - component: {fileID: 1050857062}
   - component: {fileID: 1050857064}
   - component: {fileID: 1050857063}
+  - component: {fileID: 1050857065}
   m_Layer: 0
   m_Name: Wheel
   m_TagString: Untagged
@@ -2077,6 +2086,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050857061}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &1050857065
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050857061}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1112613980
 GameObject:
@@ -2730,7 +2761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToFollow: {fileID: 818160939}
-  offset: {x: 0, y: 2.5, z: -7.5}
+  offset: {x: 0, y: 1.58, z: -7.5}
   followSpeed: 10
   lookSpeed: 10
 --- !u!1 &1501581800
@@ -3264,6 +3295,7 @@ GameObject:
   - component: {fileID: 1797746872}
   - component: {fileID: 1797746874}
   - component: {fileID: 1797746873}
+  - component: {fileID: 1797746875}
   m_Layer: 0
   m_Name: Wheel
   m_TagString: Untagged
@@ -3336,6 +3368,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797746871}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &1797746875
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797746871}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1804714322
 GameObject:
   m_ObjectHideFlags: 0
@@ -3347,6 +3401,7 @@ GameObject:
   - component: {fileID: 1804714323}
   - component: {fileID: 1804714325}
   - component: {fileID: 1804714324}
+  - component: {fileID: 1804714326}
   m_Layer: 0
   m_Name: Wheel
   m_TagString: Untagged
@@ -3418,6 +3473,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804714322}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &1804714326
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804714322}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1848133797
 GameObject:
@@ -4030,6 +4107,7 @@ GameObject:
   - component: {fileID: 1953910278}
   - component: {fileID: 1953910280}
   - component: {fileID: 1953910279}
+  - component: {fileID: 1953910281}
   m_Layer: 0
   m_Name: Wheel
   m_TagString: Untagged
@@ -4101,6 +4179,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953910277}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &1953910281
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953910277}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1984761268
 GameObject:
@@ -4319,15 +4419,15 @@ WheelCollider:
   m_GameObject: {fileID: 2052399258}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 3
+  m_Radius: 2.5
   m_SuspensionSpring:
-    spring: 90000
-    damper: 9000
+    spring: 3000
+    damper: 300
     targetPosition: 1
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 2
   m_ForceAppPointDistance: 0
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1

@@ -45,17 +45,20 @@ public class SimpleCarController : MonoBehaviour
 
     private void Accelerate()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, rayRange, floorLayer))
-        {
-            frontDriverW.motorTorque = speed;
-            frontPassengerW.motorTorque = speed;
-        }
-        if (Physics.Raycast(transform.position, transform.forward, out hit, rayRange, grassLayer))
-        {
-            frontDriverW.motorTorque = grassSpeed;
-            frontPassengerW.motorTorque = grassSpeed;
-        }
+        frontDriverW.motorTorque = speed;
+        frontPassengerW.motorTorque = speed;
+
+        //RaycastHit hit;
+        //if (Physics.Raycast(transform.position, transform.forward, out hit, rayRange, floorLayer))
+        //{
+        //    frontDriverW.motorTorque = speed;
+        //    frontPassengerW.motorTorque = speed;
+        //}
+        //if (Physics.Raycast(transform.position, transform.forward, out hit, rayRange, grassLayer))
+        //{
+        //    frontDriverW.motorTorque = grassSpeed;
+        //    frontPassengerW.motorTorque = grassSpeed;
+        //}
 
     }
 
