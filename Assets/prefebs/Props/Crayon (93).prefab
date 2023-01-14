@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2277215943226104519}
   - component: {fileID: 2897380542164374882}
   - component: {fileID: 1139805470677459368}
+  - component: {fileID: 7340580685432472975}
   m_Layer: 0
   m_Name: Crayon (93)
   m_TagString: Untagged
@@ -83,3 +84,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &7340580685432472975
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500151096334172285}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.0100000035
+  m_Height: 0.029272512
+  m_Direction: 1
+  m_Center: {x: -0.000000028405339, y: -0.0005133259, z: 0.000000013038516}
