@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CarSelection : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class CarSelection : MonoBehaviour
     public Button ArrowLeft;
     public Button ArrowRight;
     [SerializeField] private Button MiddleButton;
+    [SerializeField] private TextMeshProUGUI buurt;
+    
 
 
 
@@ -114,6 +117,11 @@ public class CarSelection : MonoBehaviour
         //Debug.Log("right");
     }
 
+    public void SlectedcarGifTo()
+    {
+        Gamemanger.SingGame.PlayerSelection(currentCar);
+        buurt.text = "player 2";
+    }
     public void SelectCar()
     {
         currentCar = racingCars[carNumber];
