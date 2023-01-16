@@ -13,7 +13,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI endTimerText;
     [SerializeField] private TextMeshProUGUI worstTimerText;
 
-    private bool goTimer;
+    public bool goTimer;
 
 
     void Start()
@@ -35,14 +35,14 @@ public class Timer : MonoBehaviour
         endTimerText.text = endTime.ToString();
         worstTimerText.text = worstTime.ToString();
 
-        if (Input.GetKeyDown(KeyCode.O))
-            EndTime();
+        //if (Input.GetKeyDown(KeyCode.O))
+        //    EndTime();
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            timer = 0;
-            goTimer = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    timer = 0;
+        //    goTimer = true;
+        //}
     }
 
     public void EndTime()

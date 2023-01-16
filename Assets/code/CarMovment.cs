@@ -62,32 +62,34 @@ public class CarMovment : MonoBehaviour
         m_RB.transform.parent = null;
         m_TurnInput = 0;
     }
-    public void HandleMoveInput(InputAction.CallbackContext context)
-    {
-        Vector2 direction = context.ReadValue<Vector2>();
+    //public void HandleMoveInput(InputAction.CallbackContext context)
+    //{
+    //    Vector2 direction = context.ReadValue<Vector2>();
 
-        if(direction.x > 0.2f)
-        {
-            m_TurnInput = 1f;
-        }
-        else if(direction.x < -0.2f)
-        {
-            m_TurnInput = -1f;
-        }
-        else if(direction.x == 0f)
-        {
-            m_TurnInput = 0f;
-        }
+    //    if (direction.x > 0.2f)
+    //    {
+    //        m_TurnInput = 1f;
+    //    }
+    //    else if(direction.x < -0.2f)
+    //    {
+    //        m_TurnInput = -1f;
+    //    }
+    //    else if(direction.x == 0f)
+    //    {
+    //        m_TurnInput = 0f;
+    //    }
 
-        Debug.Log(direction);
-        print(m_TurnInput);
-    }
+    //    Debug.Log(direction);
+    //    print(m_TurnInput);
+    //}
 
     void Update()
     {
         // welke kant die op gaat drijen en hoe die rijd
        
         SetOverData();
+
+        m_TurnInput = Input.GetAxis("Horizontal");
 
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_TurnInput * m_TurnStrength * Time.deltaTime * 10f, 0f));
         transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
