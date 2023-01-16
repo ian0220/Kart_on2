@@ -10,6 +10,8 @@ public class CarMovment : MonoBehaviour
     [SerializeField] private float m_DriftStrengt = 2;
     [SerializeField] float GrafetyForce = 5;
 
+    [SerializeField] private ParticleSystem boostParticle;
+
     [Header("Drift")]
     [SerializeField] private float m_endtimer = 5;
     private float m_Driftto = 0;
@@ -283,12 +285,14 @@ public class CarMovment : MonoBehaviour
             // zet boost tijd en boost als de tijd over doe is reset die het
             m_timerboost += Time.deltaTime;
             boostspeed = SetBoostSpeed;
+            boostParticle.Play();
         }
         else
         {
             boostspeed = 0;
             m_timerboost = 0;
             GiveBoost = false;
+            boostParticle.Stop();
         }
         m_Speed += boostspeed;
     }
