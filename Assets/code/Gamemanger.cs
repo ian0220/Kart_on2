@@ -12,8 +12,9 @@ public class Gamemanger : MonoBehaviour
     public GameObject[] CheckPointsArray;
     public GameObject Finsh;
     private bool m_TwoPlayer = false;
-    private GameObject m_PlayerOneCar;
-    private GameObject m_PlayerTwoCar;
+    public List<GameObject> m_playerscars = new List<GameObject>();
+    public GameObject m_PlayerOneCar;
+    public GameObject m_PlayerTwoCar;
 
     //[Header("inputmanger")]
     //private List<PlayerInput> m_Players = new List<PlayerInput>();
@@ -59,17 +60,11 @@ public class Gamemanger : MonoBehaviour
 
     public void PlayerSelection(GameObject _car)
     { 
-        if(m_PlayerOneCar == null)
-        {
-            m_PlayerOneCar = _car;
+            m_playerscars.Add(_car);
+        
 
-        }
-        else if(m_PlayerTwoCar == null)
-        {
-            m_PlayerTwoCar = _car;
-        }
 
-        if((m_TwoPlayer == true && !(m_PlayerTwoCar == null)) || (m_TwoPlayer == false && !(m_PlayerOneCar == null)))
+        if((m_TwoPlayer == true && (m_playerscars.Count == 2)) || (m_TwoPlayer == false && (m_playerscars.Count == 1)))
         {
             NextScene();
         }

@@ -440,7 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rbody: {fileID: 8365702085235189487}
   racatpoint: {fileID: 8365702086516954799}
-  cararttf: {fileID: 4491994296369593875}
+  cararttf: {fileID: 8365702084970235306}
 --- !u!1 &8365702086516954798
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,7 +661,7 @@ PrefabInstance:
     - target: {fileID: 4685401773298804886, guid: 59c1792432f82484bb526c011839f971,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5354274981495026220, guid: 59c1792432f82484bb526c011839f971,
         type: 3}

@@ -56,6 +56,7 @@ public class CarMovment : MonoBehaviour
     private float m_MaxSpeed;
     private float Lerpnummer = 0;
     private bool OnGrass = false;
+    private bool m_Buttonprest = false;
 
     public void Initialize()
     {
@@ -83,7 +84,7 @@ public class CarMovment : MonoBehaviour
         }
 
        // Debug.Log(direction);
-       // print(m_TurnInput);
+     // print(m_TurnInput);
     }
 
     void Update()
@@ -167,38 +168,43 @@ public class CarMovment : MonoBehaviour
 
     public void rightSchoulder(InputAction.CallbackContext _context)
     {
-        print(_context);
-
+       m_Buttonprest = _context.ReadValueAsButton();
+        print(m_Buttonprest);
     }
 
     private void ToDrifting()
     {
         // controleerd welke kand op de kijken met de drift
-        if (Input.GetKey(KeyCode.A) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
+        if (m_TurnInput == -1f && (m_Buttonprest == true) && (!IsDrifting))
         {
+            print("turning");
             m_Driftto = -10f;
             m_YasCarArtGoTo = -m_yasARTCar;
             IsDrifting = true;
         }
-        else if (Input.GetKey(KeyCode.D) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
+        else if (m_TurnInput == 1f && (m_Buttonprest == true) && (!IsDrifting))
         {
-
+            print("turning");
             m_YasCarArtGoTo = m_yasARTCar;
             m_Driftto = 10f;
             IsDrifting = true;
         }
         // laat de lerp nummer opnieuw beginnen zo dat die weer kan lerpen naar de juisten kant
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (m_Buttonprest == true)
         {
+            m_CarArtTransform.localRotation = Quaternion.RotateTowards(m_CarArtTransform.transform.localRotation, Quaternion.Euler(0, m_YasCarArtGoTo, 0), 10f);
             Lerpnummer = 0;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (m_Buttonprest == false)
         {
             m_YasCarArtGoTo = 0f;
+            m_CarArtTransform.localRotation = Quaternion.RotateTowards(m_CarArtTransform.transform.localRotation, Quaternion.Euler(0, m_YasCarArtGoTo, 0), 10f);
             Lerpnummer = 0;
+            print("klaar");
         }
         // lerp naar eem kant to 
-        m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
+        //  m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
+        
         Lerpnummer += 0.5f * Time.deltaTime;
 
         if (IsDrifting)
@@ -239,7 +245,7 @@ public class CarMovment : MonoBehaviour
         }        
         else if (Physics.Raycast(BeginPointRay.position, -car.transform.up, out hit, RayRange, GrassLayer))
         {
-            Debug.Log("Grass");
+          //  Debug.Log("Grass");
             OnGrass = true;
             OnGround = true;
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
@@ -259,7 +265,7 @@ public class CarMovment : MonoBehaviour
     private void Drifting(float _TuringTo)
     {
         // drift is ingedrukt dan geeft die tijd mee en lerpt die naar zij kant zo dra los kijk og boost mag geven
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (m_Buttonprest)
         {
             m_timer += Time.deltaTime;
             car.transform.rotation = Quaternion.Euler(car.transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));

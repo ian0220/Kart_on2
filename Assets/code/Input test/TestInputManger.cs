@@ -13,7 +13,7 @@ public class TestInputManger : MonoBehaviour
     [SerializeField]
     private List<LayerMask> m_PlayerLayer;
     [SerializeField] GameObject car1;
-    private int 
+    private int getal = 0;
 
     private PlayerInputManager m_playerInputManger;
     // Start is called before the first frame update
@@ -35,23 +35,35 @@ public class TestInputManger : MonoBehaviour
         //    m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
         //}
         
-        if(SceneManager.GetActiveScene().buildIndex == 2 )
-        {
-            SetUpCar();
-        }
+       
     }
+
     
-    
+
 
     private void OnEnable()
     {
         m_playerInputManger.onPlayerJoined += AddPlayer;
-   
+        SceneManager.sceneLoaded += SceneControl;
     }
 
     private void OnDisable()
     {
         m_playerInputManger.onPlayerJoined -= AddPlayer;
+    }
+
+    public void SceneControl(Scene _scene , LoadSceneMode _loadSceneMode)
+    {
+        if(_scene.buildIndex == 2)
+        {
+          //  print(m_Players.Count);
+            for (int i = 0; i < m_Players.Count; i++)
+            {
+               // print(m_Players.Count);
+                SetUpCar(i);               
+            }
+            m_playerInputManger.splitScreen = true;
+        }
     }
 
     public void AddPlayer(PlayerInput _player)
@@ -62,13 +74,18 @@ public class TestInputManger : MonoBehaviour
         _player.transform.position = m_StartingPoint[m_Players.Count - 1].position;
     }
 
-    private void SetUpCar()
+    private void SetUpCar(int _player)
     {
-        print(" ya");
-        GameObject test = Instantiate(car1, m_Players[0].transform.position, m_Players[0].transform.rotation);
-        CarMovment carMovement = m_Players[0].GetComponent<CarMovment>();
+       // print(" ya");
+        GameObject test = Instantiate(car1, m_Players[_player].transform.position, m_Players[_player].transform.rotation * Quaternion.Euler(0,180,0));
+        CarMovment carMovement = m_Players[_player].GetComponent<CarMovment>();
         carMovement.car = test.transform;
-        GetComponent<PlayerInput>().camera = carMovement.GetComponentInChildren<Camera>();
+        m_Players[_player].camera = test.GetComponentInChildren<Camera>();
         carMovement.Initialize();
+        CarHelper _carhelper = test.GetComponent<CarHelper>();
+        Instantiate(Gamemanger.SingGame.m_playerscars[_player], _carhelper.CarArttf.transform.position, _carhelper.CarArttf.transform.rotation, _carhelper.CarArttf);
+        
+
+
     }
 }
