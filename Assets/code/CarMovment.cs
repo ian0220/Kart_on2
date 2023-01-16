@@ -154,6 +154,11 @@ public class CarMovment : MonoBehaviour
         }
     }
 
+    public void rightSchoulder()
+    {
+
+    }
+
     private void ToDrifting()
     {
         // controleerd welke kand op de kijken met de drift
