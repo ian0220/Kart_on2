@@ -11,9 +11,6 @@ public class Gamemanger : MonoBehaviour
    // private List<PlayerInput> m_Players = new List<PlayerInput>();
     public GameObject[] CheckPointsArray;
     public GameObject Finsh;
-    private bool m_TwoPlayer = false;
-    private GameObject m_PlayerOneCar;
-    private GameObject m_PlayerTwoCar;
 
    //[SerializeField]
    // private speherecollider m_ColliderScript;
@@ -31,37 +28,12 @@ public class Gamemanger : MonoBehaviour
     }
     void Start()
     {
-
-    }
-
-    public void Twoplayers()
-    {
-        m_TwoPlayer = true;
-        NextScene();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void PlayerSelection(GameObject _car)
-    { 
-        if(m_PlayerOneCar == null)
-        {
-            m_PlayerOneCar = _car;
-
-        }
-        else if(m_PlayerTwoCar == null)
-        {
-            m_PlayerTwoCar = _car;
-        }
-
-        if((m_TwoPlayer == true && !(m_PlayerTwoCar == null)) || (m_TwoPlayer == false && !(m_PlayerOneCar == null)))
-        {
-            NextScene();
-        }
         
     }
 
