@@ -11,6 +11,7 @@ public class TestInputManger : MonoBehaviour
     private List<Transform> m_StartingPoint;
     [SerializeField]
     private List<LayerMask> m_PlayerLayer;
+    [SerializeField] GameObject car1;
 
     private PlayerInputManager m_playerInputManger;
     // Start is called before the first frame update
@@ -55,5 +56,12 @@ public class TestInputManger : MonoBehaviour
         m_Players.Add(_player);
 
         _player.transform.position = m_StartingPoint[m_Players.Count - 1].position;
+    }
+
+    private void SetUpCar()
+    {
+        
+       GameObject test = Instantiate(car1, m_Players[0].transform.position, m_Players[0].transform.rotation);
+        test.GetComponent<PlayerInput>() = m_Players[0];
     }
 }

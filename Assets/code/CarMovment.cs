@@ -47,7 +47,7 @@ public class CarMovment : MonoBehaviour
     //[SerializeField] Transform m_RightWheel;
     //[SerializeField] Transform m_LeftWheel;
     //[SerializeField] float m_turnAmmount;
-
+    public Transform car;
     [Header("private")]
     private bool OnGround;
     private float m_SpeedInput, m_TurnInput;
@@ -85,6 +85,10 @@ public class CarMovment : MonoBehaviour
 
     void Update()
     {
+        if (car == null)
+        {
+            return;
+        }
         // welke kant die op gaat drijen en hoe die rijd
        
         SetOverData();
