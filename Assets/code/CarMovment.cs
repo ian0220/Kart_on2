@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CarMovment : MonoBehaviour
 {
@@ -59,14 +60,36 @@ public class CarMovment : MonoBehaviour
     void Start()
     {
         m_RB.transform.parent = null;
+        m_TurnInput = 0;
     }
+    //public void HandleMoveInput(InputAction.CallbackContext context)
+    //{
+    //    Vector2 direction = context.ReadValue<Vector2>();
 
+    //    if (direction.x > 0.2f)
+    //    {
+    //        m_TurnInput = 1f;
+    //    }
+    //    else if(direction.x < -0.2f)
+    //    {
+    //        m_TurnInput = -1f;
+    //    }
+    //    else if(direction.x == 0f)
+    //    {
+    //        m_TurnInput = 0f;
+    //    }
+
+    //    Debug.Log(direction);
+    //    print(m_TurnInput);
+    //}
 
     void Update()
     {
         // welke kant die op gaat drijen en hoe die rijd
-        m_TurnInput = Input.GetAxis("Horizontal");
+       
         SetOverData();
+
+        m_TurnInput = Input.GetAxis("Horizontal");
 
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_TurnInput * m_TurnStrength * Time.deltaTime * 10f, 0f));
         transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
@@ -76,7 +99,6 @@ public class CarMovment : MonoBehaviour
         {
             Boost2_0();
         }
-        Priten();
 
         //if (Input.GetKey(KeyCode.A))
         //{
@@ -132,6 +154,11 @@ public class CarMovment : MonoBehaviour
             m_Speed = m_FlyingMovement.Speed;
             m_MaxSpeed = m_FlyingMovement.MaxSpeed;
         }
+    }
+
+    public void rightSchoulder()
+    {
+
     }
 
     private void ToDrifting()

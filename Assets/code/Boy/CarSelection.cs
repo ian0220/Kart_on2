@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CarSelection : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class CarSelection : MonoBehaviour
     private float LerpOutput;
     public Button ArrowLeft;
     public Button ArrowRight;
+    [SerializeField] private Button MiddleButton;
+    [SerializeField] private TextMeshProUGUI buurt;
+    
+
 
 
 
@@ -24,6 +29,7 @@ public class CarSelection : MonoBehaviour
     {
         carNumber = 0;
         point = transform.position;
+        SelectCar();
     }
 
     void Update()
@@ -55,6 +61,8 @@ public class CarSelection : MonoBehaviour
                 transform.position = point;
                 ArrowLeft.interactable = true;
                 ArrowRight.interactable = true;
+                MiddleButton.Select();
+                SelectCar();
             }
 
             
@@ -83,7 +91,7 @@ public class CarSelection : MonoBehaviour
             carNumber--;
         }
 
-        Debug.Log("left");
+       // Debug.Log("left");
     }
 
     public void GoRight()
@@ -106,9 +114,15 @@ public class CarSelection : MonoBehaviour
             MoveCamera();
             carNumber++;
         }
-        Debug.Log("right");
+        //Debug.Log("right");
     }
 
+    public void SlectedcarGifTo()
+    {
+        buurt.text = "player 2";
+        Gamemanger.SingGame.PlayerSelection(currentCar);
+      
+    }
     public void SelectCar()
     {
         currentCar = racingCars[carNumber];
@@ -116,7 +130,7 @@ public class CarSelection : MonoBehaviour
 
     public void MoveCamera()
     {
-        //
+        // in update gaat die lerpen
         moveToTarget = true;
     }
 }
