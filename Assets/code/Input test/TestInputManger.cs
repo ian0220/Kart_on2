@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class TestInputManger : MonoBehaviour
 {
@@ -16,14 +17,26 @@ public class TestInputManger : MonoBehaviour
     void Awake()
     {
         m_playerInputManger = FindObjectOfType<PlayerInputManager>();
+    //    m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
     }
 
     // Update is called once per frame
     void Update()
     {
-          
+        //if(SceneManager.GetActiveScene().buildIndex == 2)
+        //{
+        //    m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
+        //}
+        //else
+        //{
+        //    m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
+        //}
     }
-
+    
+    public void SpawnCar()
+    {
+        
+    }
 
     private void OnEnable()
     {

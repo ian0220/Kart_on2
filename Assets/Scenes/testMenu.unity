@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5504.271, g: 3540.563, b: 2337.633, a: 1}
+  m_IndirectSpecularColor: {r: 5499.9, g: 3538.7583, b: 2337.219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -556,9 +556,9 @@ MonoBehaviour:
         m_Flags: 0
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 175053617153832084, guid: 592c859274f244b49a22a1acf43ec230,
+  m_PlayerPrefab: {fileID: 8365702085578148960, guid: 38324d64e9a1260479ec407915e16985,
     type: 3}
-  m_SplitScreen: 0
+  m_SplitScreen: 1
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
   m_SplitScreenRect:
@@ -608,8 +608,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1161408e2dc424897b17b5dbf43e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StartingPoint: []
-  m_PlayerLayer: []
+  m_StartingPoint:
+  - {fileID: 892911779243683941, guid: df3d0d7f1c4f88944aae97223a2ac1e4, type: 3}
+  - {fileID: 1844053069074118001, guid: b3cda3076e67e3043bf20c197a60c4f7, type: 3}
+  m_PlayerLayer:
+  - serializedVersion: 2
+    m_Bits: 256
+  - serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &1474804483
 GameObject:
   m_ObjectHideFlags: 0

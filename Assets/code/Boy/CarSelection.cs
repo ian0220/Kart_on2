@@ -119,8 +119,9 @@ public class CarSelection : MonoBehaviour
 
     public void SlectedcarGifTo()
     {
-        Gamemanger.SingGame.PlayerSelection(currentCar);
         buurt.text = "player 2";
+        Gamemanger.SingGame.PlayerSelection(currentCar);
+      
     }
     public void SelectCar()
     {
