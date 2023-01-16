@@ -20,6 +20,7 @@ public class CarSelection : MonoBehaviour
     public Button ArrowRight;
     [SerializeField] private Button MiddleButton;
     [SerializeField] private TextMeshProUGUI buurt;
+    [SerializeField] private GameObject playerseeart1 , playerseeart2;
     
 
 
@@ -121,7 +122,8 @@ public class CarSelection : MonoBehaviour
     {
        
         Gamemanger.SingGame.PlayerSelection(currentCar);
-        buurt.text = "player 2";
+        playerseeart1.SetActive(false);
+        playerseeart2.SetActive(true);
     }
     public void SelectCar()
     {
