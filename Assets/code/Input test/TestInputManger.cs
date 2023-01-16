@@ -17,13 +17,13 @@ public class TestInputManger : MonoBehaviour
     void Awake()
     {
         m_playerInputManger = FindObjectOfType<PlayerInputManager>();
-    //    m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
+        //m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(SceneManager.GetActiveScene().buildIndex == 2)
+        //if (SceneManager.GetActiveScene().buildIndex == 2)
         //{
         //    m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
         //}
@@ -41,6 +41,7 @@ public class TestInputManger : MonoBehaviour
     private void OnEnable()
     {
         m_playerInputManger.onPlayerJoined += AddPlayer;
+   
     }
 
     private void OnDisable()
@@ -50,6 +51,7 @@ public class TestInputManger : MonoBehaviour
 
     public void AddPlayer(PlayerInput _player)
     {
+        Debug.Log(_player);
         m_Players.Add(_player);
 
         _player.transform.position = m_StartingPoint[m_Players.Count - 1].position;
