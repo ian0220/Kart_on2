@@ -26,16 +26,17 @@ public class TestInputManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (SceneManager.GetActiveScene().buildIndex == 2)
-        //{
-        //    m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
-        //}
-        //else
-        //{
-        //    m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
-        //}
-        
-       
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
+           
+        }
+        else
+        {
+            m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
+        }
+
+
     }
 
     
@@ -54,7 +55,7 @@ public class TestInputManger : MonoBehaviour
 
     public void SceneControl(Scene _scene , LoadSceneMode _loadSceneMode)
     {
-        if(_scene.buildIndex == 2)
+        if(_scene.buildIndex == 3)
         {
           //  print(m_Players.Count);
             for (int i = 0; i < m_Players.Count; i++)

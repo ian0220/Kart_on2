@@ -32,7 +32,7 @@ public class speherecollider : MonoBehaviour
     {
         // if you wnet troe start tel you have al the check point back turn the check point you had back to 0 and turn al the checkpoints back on
         m_chechpointshad = 0;
-        for (int i = 0; i < Gamemanger.SingGame.CheckPointsArray.Length; i++)
+        for (int i = 0; i < Gamemanger.SingGame.CheckPointsArray.Count; i++)
         {
             Gamemanger.SingGame.CheckPointsArray[i].SetActive(true);
         }
@@ -43,7 +43,7 @@ public class speherecollider : MonoBehaviour
     {
         // if you went trow a check point the say had the check point you had and check if you hade al the check point
         m_chechpointshad += 1;
-        if (m_chechpointshad == Gamemanger.SingGame.CheckPointsArray.Length)
+        if (m_chechpointshad == Gamemanger.SingGame.CheckPointsArray.Count)
         {
             Gamemanger.SingGame.Finsh.SetActive(true);
         }
