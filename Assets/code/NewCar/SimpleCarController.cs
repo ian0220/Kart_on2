@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SimpleCarController : MonoBehaviour
 {
@@ -32,8 +33,29 @@ public class SimpleCarController : MonoBehaviour
 
     public void GetInput()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        //horizontalInput = Input.GetAxis("Horizontal");
+        //verticalInput = Input.GetAxis("Vertical");
+    }
+
+    public void HandleMoveInput(InputAction.CallbackContext context)
+    {
+        Vector2 direction = context.ReadValue<Vector2>();
+
+        if (direction.x > 0.2f)
+        {
+            horizontalInput = 1f;
+        }
+        else if (direction.x < -0.2f)
+        {
+            horizontalInput = -1f;
+        }
+        else if (direction.x == 0f)
+        {
+            horizontalInput = 0f;
+        }
+
+        Debug.Log(direction);
+        print(horizontalInput);
     }
 
     private void Steer()
