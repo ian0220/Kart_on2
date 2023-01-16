@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5498.2437, g: 3909.1118, b: 3474.477, a: 1}
+  m_IndirectSpecularColor: {r: 5498.2944, g: 3907.9849, b: 3471.6802, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -500,11 +500,11 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.01
+    m_ExtremumSlip: 1
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.01
+    m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 0.1
+    m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -876,11 +876,11 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.01
+    m_ExtremumSlip: 1
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.01
+    m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 0.1
+    m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1544,7 +1544,7 @@ MonoBehaviour:
   rearDriverT: {fileID: 1112613981}
   rearPassengerT: {fileID: 1870678817}
   rayRange: 0
-  maxSteerAngle: 10
+  maxSteerAngle: 20
   speed: 10000
   grassSpeed: 700
   floorLayer:
@@ -1674,6 +1674,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d70214ab-1f45-42c8-80dc-67677f32914e
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 18fcedc8-5e87-4cd2-ba09-9b1b12b8d17c
+    m_ActionName: Player/drift
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ef73b794-178d-4fc4-ac98-51cb122b8cd6
+    m_ActionName: Player/drift right
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1736,11 +1744,11 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.01
+    m_ExtremumSlip: 1
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.01
+    m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 0.1
+    m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4580,11 +4588,11 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.01
+    m_ExtremumSlip: 1
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.01
+    m_AsymptoteSlip: 1
     m_AsymptoteValue: 1
-    m_Stiffness: 0.1
+    m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
