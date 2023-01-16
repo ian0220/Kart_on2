@@ -568,7 +568,7 @@ MonoBehaviour:
         m_Flags: 0
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 8365702085578148960, guid: 38324d64e9a1260479ec407915e16985,
+  m_PlayerPrefab: {fileID: 4984989630157419964, guid: ccbc27ea8741a6540ac59161d58a64d4,
     type: 3}
   m_SplitScreen: 1
   m_MaintainAspectRatioInSplitScreen: 0
@@ -620,6 +620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1161408e2dc424897b17b5dbf43e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Players: []
   m_StartingPoint:
   - {fileID: 892911779243683941, guid: df3d0d7f1c4f88944aae97223a2ac1e4, type: 3}
   - {fileID: 1844053069074118001, guid: b3cda3076e67e3043bf20c197a60c4f7, type: 3}
@@ -628,6 +629,7 @@ MonoBehaviour:
     m_Bits: 256
   - serializedVersion: 2
     m_Bits: 512
+  car1: {fileID: 8365702085578148960, guid: 38324d64e9a1260479ec407915e16985, type: 3}
 --- !u!1 &1474804483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,6 +1508,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1078455195767229804}
+    - targetCorrespondingSourceObject: {fileID: 175053617153832084, guid: 592c859274f244b49a22a1acf43ec230,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1078455195767229805}
   m_SourcePrefab: {fileID: 100100000, guid: 592c859274f244b49a22a1acf43ec230, type: 3}
 --- !u!1 &1078455195767229803 stripped
 GameObject:
@@ -1595,8 +1601,54 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d70214ab-1f45-42c8-80dc-67677f32914e
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 18fcedc8-5e87-4cd2-ba09-9b1b12b8d17c
+    m_ActionName: Player/drift[/XInputControllerWindows/leftShoulder,/XInputControllerWindows1/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ef73b794-178d-4fc4-ac98-51cb122b8cd6
+    m_ActionName: Player/drift right[/XInputControllerWindows/rightShoulder,/XInputControllerWindows1/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 1805372137}
+--- !u!114 &1078455195767229805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078455195767229803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff391225d7c75254cb223b64f3f62b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_YVerhogen: -1
+  m_DriftStrengt: 2
+  GrafetyForce: 5
+  m_endtimer: 5
+  m_timeInfrimeLerp: 5
+  m_HowLongToLerp: 50
+  SetBoostSpeed: 100
+  m_BoostTime: 2
+  m_NormalPlayermovement: {fileID: 11400000, guid: fb0d5399be2d1d246ac4c1bf526a4e92,
+    type: 2}
+  m_DriftMovement: {fileID: 11400000, guid: 6015aacfab3e35049863de36b1e8dc68, type: 2}
+  m_FlyingMovement: {fileID: 11400000, guid: b857c24413008f04d9fbd93a83d277c3, type: 2}
+  m_GrassMovement: {fileID: 11400000, guid: e4c35e731a64fcc4e93c4ec53103b3b9, type: 2}
+  m_GrassDriftMovement: {fileID: 11400000, guid: c1599e5606046fd458d5c4b129334c91,
+    type: 2}
+  FloorLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  GrassLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  RayRange: 2
+  BeginPointRay: {fileID: 0}
+  m_CarArtTransform: {fileID: 0}
+  m_yasARTCar: 20
+  car: {fileID: 0}

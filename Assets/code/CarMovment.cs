@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class CarMovment : MonoBehaviour
 {
     [SerializeField] private float m_YVerhogen = 3.76f;
-    [SerializeField] private Rigidbody m_RB;
+    private Rigidbody m_RB;
     [SerializeField] private float m_DriftStrengt = 2;
     [SerializeField] float GrafetyForce = 5;
 
@@ -57,8 +57,11 @@ public class CarMovment : MonoBehaviour
     private float Lerpnummer = 0;
     private bool OnGrass = false;
 
-    void Start()
+    public void Initialize()
     {
+        m_RB = car.GetComponent<CarHelper>().Rbody;
+        BeginPointRay = car.GetComponent<CarHelper>().Racetpoint;
+        m_CarArtTransform = car.GetComponent<CarHelper>().CarArttf;
         m_RB.transform.parent = null;
         m_TurnInput = 0;
     }
@@ -79,8 +82,8 @@ public class CarMovment : MonoBehaviour
             m_TurnInput = 0f;
         }
 
-        Debug.Log(direction);
-        print(m_TurnInput);
+       // Debug.Log(direction);
+       // print(m_TurnInput);
     }
 
     void Update()
@@ -95,8 +98,10 @@ public class CarMovment : MonoBehaviour
 
       //  m_TurnInput = Input.GetAxis("Horizontal");
 
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_TurnInput * m_TurnStrength * Time.deltaTime * 10f, 0f));
-        transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
+        car.transform.rotation = Quaternion.Euler(car.transform.rotation.eulerAngles + new Vector3(0f, m_TurnInput * m_TurnStrength * Time.deltaTime * 10f, 0f));
+        
+        car.transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
+        
         ToDrifting();
         OfTheWorld();
         if (GiveBoost)
@@ -205,13 +210,18 @@ public class CarMovment : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (car == null)
+        {
+            return;
+        }
+
         CheckOnGround();
 
         ForwardMovement();
         // als die niet op de grond zit dan geeft die meer grafetie force 
         if (!OnGround)
         {
-            m_RB.AddForce(transform.up * -GrafetyForce * 100f);
+            m_RB.AddForce(car.transform.up * -GrafetyForce * 100f);
         }
     }
 
@@ -222,17 +232,17 @@ public class CarMovment : MonoBehaviour
         OnGrass = false;
         RaycastHit hit;
 
-        if (Physics.Raycast(BeginPointRay.position, -transform.up, out hit, RayRange, FloorLayer))
+        if (Physics.Raycast(BeginPointRay.position, -car.transform.up, out hit, RayRange, FloorLayer))
         {
             OnGround = true;
-            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
         }        
-        else if (Physics.Raycast(BeginPointRay.position, -transform.up, out hit, RayRange, GrassLayer))
+        else if (Physics.Raycast(BeginPointRay.position, -car.transform.up, out hit, RayRange, GrassLayer))
         {
             Debug.Log("Grass");
             OnGrass = true;
             OnGround = true;
-            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
         }
         //print(hit);
     }
@@ -242,7 +252,7 @@ public class CarMovment : MonoBehaviour
         if (m_RB.velocity.magnitude < m_MaxSpeed || (GiveBoost))
         {
 
-            m_RB.AddForce(transform.forward * m_Speed * Time.fixedDeltaTime * 1000f);
+            m_RB.AddForce(car.transform.forward * m_Speed * Time.fixedDeltaTime * 1000f);
         }
     }
 
@@ -252,7 +262,7 @@ public class CarMovment : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             m_timer += Time.deltaTime;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));
+            car.transform.rotation = Quaternion.Euler(car.transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));
         }
         else
         {
@@ -314,6 +324,6 @@ public class CarMovment : MonoBehaviour
         //print(Lerpnummer);
         // print(m_timer);
         // print(m_RB.velocity.magnitude);
-        print(OnGround);
+      //  print(OnGround);
     }
 }

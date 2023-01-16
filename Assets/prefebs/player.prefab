@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4984989630157419964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2158882834340472253}
+  - component: {fileID: 5835196140238404687}
+  - component: {fileID: 2253826868873010496}
+  - component: {fileID: -4051987184935303743}
+  m_Layer: 0
+  m_Name: player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2158882834340472253
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4984989630157419964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -41.638268, y: 2.390757, z: -1.0266497}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5835196140238404687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4984989630157419964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 7538052e97c01fe49ac38bc25431df28,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &2253826868873010496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4984989630157419964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff391225d7c75254cb223b64f3f62b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_YVerhogen: -1
+  m_RB: {fileID: 8365702085235189487, guid: 38324d64e9a1260479ec407915e16985, type: 3}
+  m_DriftStrengt: 5
+  GrafetyForce: 20
+  m_endtimer: 5
+  m_timeInfrimeLerp: 600
+  m_HowLongToLerp: 100
+  SetBoostSpeed: 200
+  m_BoostTime: 0.5
+  m_NormalPlayermovement: {fileID: 11400000, guid: fb0d5399be2d1d246ac4c1bf526a4e92,
+    type: 2}
+  m_DriftMovement: {fileID: 11400000, guid: 6015aacfab3e35049863de36b1e8dc68, type: 2}
+  m_FlyingMovement: {fileID: 11400000, guid: b857c24413008f04d9fbd93a83d277c3, type: 2}
+  m_GrassMovement: {fileID: 11400000, guid: e4c35e731a64fcc4e93c4ec53103b3b9, type: 2}
+  m_GrassDriftMovement: {fileID: 11400000, guid: c1599e5606046fd458d5c4b129334c91,
+    type: 2}
+  FloorLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  GrassLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  RayRange: 10
+  BeginPointRay: {fileID: 8365702086516954799, guid: 38324d64e9a1260479ec407915e16985,
+    type: 3}
+  m_CarArtTransform: {fileID: 8365702084970235306, guid: 38324d64e9a1260479ec407915e16985,
+    type: 3}
+  m_yasARTCar: 45
+  car: {fileID: 0}
+--- !u!114 &-4051987184935303743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4984989630157419964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c76313ccabbc6247b64acccfce4ac46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
