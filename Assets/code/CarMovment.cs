@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class CarMovment : MonoBehaviour
 {
     [SerializeField] private float m_YVerhogen = 3.76f;
-    [SerializeField] private Rigidbody m_RB;
+    private Rigidbody m_RB;
     [SerializeField] private float m_DriftStrengt = 2;
     [SerializeField] float GrafetyForce = 5;
 
@@ -49,7 +49,7 @@ public class CarMovment : MonoBehaviour
     //[SerializeField] Transform m_RightWheel;
     //[SerializeField] Transform m_LeftWheel;
     //[SerializeField] float m_turnAmmount;
-
+    public Transform car;
     [Header("private")]
     private bool OnGround;
     private float m_SpeedInput, m_TurnInput;
@@ -58,43 +58,53 @@ public class CarMovment : MonoBehaviour
     private float m_MaxSpeed;
     private float Lerpnummer = 0;
     private bool OnGrass = false;
+    private bool m_Buttonprest = false;
 
-    void Start()
+    public void Initialize()
     {
+        m_RB = car.GetComponent<CarHelper>().Rbody;
+        BeginPointRay = car.GetComponent<CarHelper>().Racetpoint;
+        m_CarArtTransform = car.GetComponent<CarHelper>().CarArttf;
         m_RB.transform.parent = null;
         m_TurnInput = 0;
     }
-    //public void HandleMoveInput(InputAction.CallbackContext context)
-    //{
-    //    Vector2 direction = context.ReadValue<Vector2>();
+    public void HandleMoveInput(InputAction.CallbackContext context)
+    {
+        Vector2 direction = context.ReadValue<Vector2>();
 
-    //    if (direction.x > 0.2f)
-    //    {
-    //        m_TurnInput = 1f;
-    //    }
-    //    else if(direction.x < -0.2f)
-    //    {
-    //        m_TurnInput = -1f;
-    //    }
-    //    else if(direction.x == 0f)
-    //    {
-    //        m_TurnInput = 0f;
-    //    }
+        if (direction.x > 0.2f)
+        {
+            m_TurnInput = 1f;
+        }
+        else if (direction.x < -0.2f)
+        {
+            m_TurnInput = -1f;
+        }
+        else if (direction.x == 0f)
+        {
+            m_TurnInput = 0f;
+        }
 
-    //    Debug.Log(direction);
-    //    print(m_TurnInput);
-    //}
+       // Debug.Log(direction);
+     // print(m_TurnInput);
+    }
 
     void Update()
     {
+        if (car == null)
+        {
+            return;
+        }
         // welke kant die op gaat drijen en hoe die rijd
        
         SetOverData();
 
-        m_TurnInput = Input.GetAxis("Horizontal");
+      //  m_TurnInput = Input.GetAxis("Horizontal");
 
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, m_TurnInput * m_TurnStrength * Time.deltaTime * 10f, 0f));
-        transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
+        car.transform.rotation = Quaternion.Euler(car.transform.rotation.eulerAngles + new Vector3(0f, m_TurnInput * m_TurnStrength * Time.deltaTime * 10f, 0f));
+        
+        car.transform.position = m_RB.transform.position + new Vector3(0, m_YVerhogen, 0);
+        
         ToDrifting();
         OfTheWorld();
         if (GiveBoost)
@@ -158,39 +168,45 @@ public class CarMovment : MonoBehaviour
         }
     }
 
-    public void rightSchoulder()
+    public void rightSchoulder(InputAction.CallbackContext _context)
     {
-
+       m_Buttonprest = _context.ReadValueAsButton();
+        print(m_Buttonprest);
     }
 
     private void ToDrifting()
     {
         // controleerd welke kand op de kijken met de drift
-        if (Input.GetKey(KeyCode.A) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
+        if (m_TurnInput == -1f && (m_Buttonprest == true) && (!IsDrifting))
         {
+            print("turning");
             m_Driftto = -10f;
             m_YasCarArtGoTo = -m_yasARTCar;
             IsDrifting = true;
         }
-        else if (Input.GetKey(KeyCode.D) && (Input.GetKey(KeyCode.LeftShift)) && (!IsDrifting))
+        else if (m_TurnInput == 1f && (m_Buttonprest == true) && (!IsDrifting))
         {
-
+            print("turning");
             m_YasCarArtGoTo = m_yasARTCar;
             m_Driftto = 10f;
             IsDrifting = true;
         }
         // laat de lerp nummer opnieuw beginnen zo dat die weer kan lerpen naar de juisten kant
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (m_Buttonprest == true)
         {
+            m_CarArtTransform.localRotation = Quaternion.RotateTowards(m_CarArtTransform.transform.localRotation, Quaternion.Euler(0, m_YasCarArtGoTo, 0), 10f);
             Lerpnummer = 0;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (m_Buttonprest == false)
         {
             m_YasCarArtGoTo = 0f;
+            m_CarArtTransform.localRotation = Quaternion.RotateTowards(m_CarArtTransform.transform.localRotation, Quaternion.Euler(0, m_YasCarArtGoTo, 0), 10f);
             Lerpnummer = 0;
+            print("klaar");
         }
         // lerp naar eem kant to 
-        m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
+        //  m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
+        
         Lerpnummer += 0.5f * Time.deltaTime;
 
         if (IsDrifting)
@@ -202,13 +218,18 @@ public class CarMovment : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (car == null)
+        {
+            return;
+        }
+
         CheckOnGround();
 
         ForwardMovement();
         // als die niet op de grond zit dan geeft die meer grafetie force 
         if (!OnGround)
         {
-            m_RB.AddForce(transform.up * -GrafetyForce * 100f);
+            m_RB.AddForce(car.transform.up * -GrafetyForce * 100f);
         }
     }
 
@@ -219,17 +240,17 @@ public class CarMovment : MonoBehaviour
         OnGrass = false;
         RaycastHit hit;
 
-        if (Physics.Raycast(BeginPointRay.position, -transform.up, out hit, RayRange, FloorLayer))
+        if (Physics.Raycast(BeginPointRay.position, -car.transform.up, out hit, RayRange, FloorLayer))
         {
             OnGround = true;
-            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
         }        
-        else if (Physics.Raycast(BeginPointRay.position, -transform.up, out hit, RayRange, GrassLayer))
+        else if (Physics.Raycast(BeginPointRay.position, -car.transform.up, out hit, RayRange, GrassLayer))
         {
-            Debug.Log("Grass");
+          //  Debug.Log("Grass");
             OnGrass = true;
             OnGround = true;
-            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
         }
         //print(hit);
     }
@@ -239,17 +260,17 @@ public class CarMovment : MonoBehaviour
         if (m_RB.velocity.magnitude < m_MaxSpeed || (GiveBoost))
         {
 
-            m_RB.AddForce(transform.forward * m_Speed * Time.fixedDeltaTime * 1000f);
+            m_RB.AddForce(car.transform.forward * m_Speed * Time.fixedDeltaTime * 1000f);
         }
     }
 
     private void Drifting(float _TuringTo)
     {
         // drift is ingedrukt dan geeft die tijd mee en lerpt die naar zij kant zo dra los kijk og boost mag geven
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (m_Buttonprest)
         {
             m_timer += Time.deltaTime;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));
+            car.transform.rotation = Quaternion.Euler(car.transform.rotation.eulerAngles + new Vector3(0f, _TuringTo * m_DriftStrengt * Time.deltaTime, 0f));
         }
         else
         {
@@ -304,6 +325,11 @@ public class CarMovment : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
+
     private void Priten()
     {
         //print(GiveBoost);
@@ -313,6 +339,6 @@ public class CarMovment : MonoBehaviour
         //print(Lerpnummer);
         // print(m_timer);
         // print(m_RB.velocity.magnitude);
-        print(OnGround);
+      //  print(OnGround);
     }
 }

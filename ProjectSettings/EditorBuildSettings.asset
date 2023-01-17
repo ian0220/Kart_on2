@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/testMenu.unity
-    guid: ea9b0e07da0787a48a4b2a89a0dd978a
-  - enabled: 0
     path: Assets/Scenes/Main Menu.unity
     guid: c12339b23cb1d5543b5abf1e5de18c53
+  - enabled: 1
+    path: Assets/Scenes/testMenu.unity
+    guid: ea9b0e07da0787a48a4b2a89a0dd978a
   - enabled: 1
     path: Assets/Scenes/beer scene.unity
     guid: b5b925c8afb15494db2808da7b1134e8

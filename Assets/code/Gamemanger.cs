@@ -9,23 +9,16 @@ public class Gamemanger : MonoBehaviour
     public static Gamemanger SingGame;
 
    // private List<PlayerInput> m_Players = new List<PlayerInput>();
-    public GameObject[] CheckPointsArray;
+    public List<GameObject> CheckPointsArray;
     public GameObject Finsh;
     private bool m_TwoPlayer = false;
-    private GameObject m_PlayerOneCar;
-    private GameObject m_PlayerTwoCar;
+    public List<GameObject> m_playerscars = new List<GameObject>();
+    public GameObject m_PlayerOneCar;
+    public GameObject m_PlayerTwoCar;
+    public int checkpointschecker = 0;
+    private bool ingame = false;
 
-    //[Header("inputmanger")]
-    //private List<PlayerInput> m_Players = new List<PlayerInput>();
-    //[SerializeField]
-    //private List<Transform> m_StartingPoint;
-    //[SerializeField]                      
-    //private List<LayerMask> m_PlayerLayer;
-
-    //private PlayerInputManager m_playerInputManger;
-
-    //[SerializeField]
-    // private speherecollider m_ColliderScript;
+   
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -38,11 +31,21 @@ public class Gamemanger : MonoBehaviour
             Destroy(this);
         }
 
+        
         //m_playerInputManger = FindObjectOfType<PlayerInputManager>();
     }
     void Start()
     {
 
+    }
+
+    public void setCheckpoints()
+    {
+        ChechPoitnsmanger chech = FindObjectOfType<ChechPoitnsmanger>();
+        CheckPointsArray = chech.CheckPoints;
+        Finsh = chech.Finish;
+        Finsh.SetActive(false);
+        ingame = true;
     }
 
     public void Twoplayers()
@@ -54,22 +57,19 @@ public class Gamemanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(checkpointschecker == CheckPointsArray.Count && (ingame))
+        {
+            Finsh.SetActive(true);
+        }
     }
 
     public void PlayerSelection(GameObject _car)
     { 
-        if(m_PlayerOneCar == null)
-        {
-            m_PlayerOneCar = _car;
+            m_playerscars.Add(_car);
+        
 
-        }
-        else if(m_PlayerTwoCar == null)
-        {
-            m_PlayerTwoCar = _car;
-        }
 
-        if((m_TwoPlayer == true && !(m_PlayerTwoCar == null)) || (m_TwoPlayer == false && !(m_PlayerOneCar == null)))
+        if((m_TwoPlayer == true && (m_playerscars.Count == 2)) || (m_TwoPlayer == false && (m_playerscars.Count == 1)))
         {
             NextScene();
         }
@@ -81,20 +81,8 @@ public class Gamemanger : MonoBehaviour
          SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    //private void OnEnable()
-    //{
-    //    m_playerInputManger.onPlayerJoined += AddPlayer;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    m_playerInputManger.onPlayerJoined -= AddPlayer;
-    //}
-
-    //public void AddPlayer(PlayerInput _player)
-    //{
-    //    m_Players.Add(_player);
-
-    //    _player.transform.position = m_StartingPoint[m_Players.Count - 1].position;
-    //}
+    public void win()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

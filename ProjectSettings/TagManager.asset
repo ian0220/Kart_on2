@@ -8,6 +8,8 @@ TagManager:
   - CheckPoint
   - EmotionBalk
   - Rendercam
+  - finish
+  - checkpoint
   layers:
   - Default
   - TransparentFX
