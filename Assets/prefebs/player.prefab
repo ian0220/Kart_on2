@@ -169,11 +169,11 @@ MonoBehaviour:
   m_DriftStrengt: 5
   GrafetyForce: 20
   boostParticle: {fileID: 0}
-  m_endtimer: 5
+  m_endtimer: 1
   m_timeInfrimeLerp: 600
   m_HowLongToLerp: 100
   SetBoostSpeed: 200
-  m_BoostTime: 0.5
+  m_BoostTime: 1
   m_NormalPlayermovement: {fileID: 11400000, guid: fb0d5399be2d1d246ac4c1bf526a4e92,
     type: 2}
   m_DriftMovement: {fileID: 11400000, guid: 6015aacfab3e35049863de36b1e8dc68, type: 2}

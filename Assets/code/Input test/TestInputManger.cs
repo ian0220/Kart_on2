@@ -29,7 +29,7 @@ public class TestInputManger : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
-           
+            Timer.singleton.StartTime();
         }
         else
         {

@@ -65,6 +65,7 @@ public class CarMovment : MonoBehaviour
         m_RB = car.GetComponent<CarHelper>().Rbody;
         BeginPointRay = car.GetComponent<CarHelper>().Racetpoint;
         m_CarArtTransform = car.GetComponent<CarHelper>().CarArttf;
+        boostParticle = car.GetComponent<CarHelper>().ParticleSystem;
         m_RB.transform.parent = null;
         m_TurnInput = 0;
     }
@@ -244,10 +245,11 @@ public class CarMovment : MonoBehaviour
         {
             OnGround = true;
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
+            print("floor");
         }        
         else if (Physics.Raycast(BeginPointRay.position, -car.transform.up, out hit, RayRange, GrassLayer))
         {
-          //  Debug.Log("Grass");
+            print("Grass");
             OnGrass = true;
             OnGround = true;
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;

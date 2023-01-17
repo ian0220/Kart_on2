@@ -14,12 +14,22 @@ public class Timer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI worstTimerText;
 
     public bool goTimer;
+    private bool timerBool;
+    public static Timer singleton;
 
+    private void Awake()
+    {
+        if (singleton == null)
+            singleton = this;
+        else
+            Destroy(this);
+    }
 
     void Start()
     {
         timer = timerTime;
         goTimer = false;
+        timerBool = false;
     }
 
     void Update()
@@ -34,15 +44,14 @@ public class Timer : MonoBehaviour
         timerText.text = timer.ToString();
         endTimerText.text = endTime.ToString();
         worstTimerText.text = worstTime.ToString();
+    }
 
-        //if (Input.GetKeyDown(KeyCode.O))
-        //    EndTime();
+    public void StartTime()
+    {
+        if (timerBool == false)
+            goTimer = true;
 
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    timer = 0;
-        //    goTimer = true;
-        //}
+        timerBool = true;
     }
 
     public void EndTime()

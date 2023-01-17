@@ -7,7 +7,12 @@ public class SimpleCameraController : MonoBehaviour
     public Transform objectToFollow;
     public Vector3 offset;
     public float followSpeed = 10f;
-    public float lookSpeed = 10f;    
+    public float lookSpeed = 10f;
+
+    private void Awake()
+    {
+        transform.parent = null;
+    }
 
     private void FixedUpdate()
     {
