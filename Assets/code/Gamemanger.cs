@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class Gamemanger : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Gamemanger : MonoBehaviour
     public GameObject m_PlayerTwoCar;
     public int checkpointschecker = 0;
     private bool ingame = false;
+    
 
    
     private void Awake()
@@ -30,7 +32,7 @@ public class Gamemanger : MonoBehaviour
         {
             Destroy(this);
         }
-
+        
         
         //m_playerInputManger = FindObjectOfType<PlayerInputManager>();
     }
@@ -85,4 +87,5 @@ public class Gamemanger : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
 }

@@ -127,7 +127,7 @@ public class CarSelection : MonoBehaviour
     }
     public void SelectCar()
     {
-        Debug.Log("selectcar");
+      //  Debug.Log("selectcar");
         currentCar = racingCars[carNumber];
     }
 

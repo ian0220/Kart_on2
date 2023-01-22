@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class TestInputManger : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class TestInputManger : MonoBehaviour
     private List<LayerMask> m_PlayerLayer;
     [SerializeField] GameObject car1;
     private int getal = 0;
+    
 
     private PlayerInputManager m_playerInputManger;
     // Start is called before the first frame update
@@ -29,14 +31,13 @@ public class TestInputManger : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
-           
+            
         }
         else
         {
             m_playerInputManger.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
         }
-
-
+        
     }
 
     
@@ -44,6 +45,7 @@ public class TestInputManger : MonoBehaviour
 
     private void OnEnable()
     {
+        
         m_playerInputManger.onPlayerJoined += AddPlayer;
         SceneManager.sceneLoaded += SceneControl;
     }
@@ -71,7 +73,6 @@ public class TestInputManger : MonoBehaviour
     {
        // Debug.Log(_player);
         m_Players.Add(_player);
-
         _player.transform.position = m_StartingPoint[m_Players.Count - 1].position;
     }
 
@@ -80,13 +81,15 @@ public class TestInputManger : MonoBehaviour
        // print(" ya");
         GameObject test = Instantiate(car1, m_Players[_player].transform.position, m_Players[_player].transform.rotation * Quaternion.Euler(0,180,0));
         CarMovment carMovement = m_Players[_player].GetComponent<CarMovment>();
+        test.GetComponent<CameraInilzar>().Layer = 10 + _player;
         carMovement.car = test.transform;
+        CinemachineVirtualCamera T = FindObjectOfType<CinemachineVirtualCamera>();
         m_Players[_player].camera = test.GetComponentInChildren<Camera>();
         carMovement.Initialize();
         CarHelper _carhelper = test.GetComponent<CarHelper>();
         Instantiate(Gamemanger.SingGame.m_playerscars[_player], _carhelper.CarArttf.transform.position, _carhelper.CarArttf.transform.rotation, _carhelper.CarArttf);
-        
-
-
+       
+        T.LookAt = test.transform;
+        T.Follow = test.transform;
     }
 }

@@ -242,6 +242,7 @@ public class CarMovment : MonoBehaviour
         {
             OnGround = true;
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
+            Debug.DrawLine(BeginPointRay.position, hit.point);
         }        
         else if (Physics.Raycast(BeginPointRay.position, -car.transform.up, out hit, RayRange, GrassLayer))
         {
