@@ -172,7 +172,7 @@ public class CarMovment : MonoBehaviour
     public void rightSchoulder(InputAction.CallbackContext _context)
     {
        m_Buttonprest = _context.ReadValueAsButton();
-        print(m_Buttonprest);
+      //  print(m_Buttonprest);
     }
 
     private void ToDrifting()
@@ -259,8 +259,6 @@ public class CarMovment : MonoBehaviour
             OnGround = true;
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
         }
-        //print(hit);
-        test100.bert100.berttext.text = OnGrass.ToString() +" " + OnGround.ToString();
     }
 
     private void ForwardMovement()
