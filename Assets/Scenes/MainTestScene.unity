@@ -57711,6 +57711,7 @@ MonoBehaviour:
   chechpoint:
   - {fileID: 950690047}
   - {fileID: 1099126570}
+  timerObject: {fileID: 0}
   finish: {fileID: 1949938108}
 --- !u!4 &1884076637
 Transform:
