@@ -200,7 +200,7 @@ public class CarMovment : MonoBehaviour
             m_YasCarArtGoTo = 0f;
             m_CarArtTransform.localRotation = Quaternion.RotateTowards(m_CarArtTransform.transform.localRotation, Quaternion.Euler(0, m_YasCarArtGoTo, 0), 10f);
             Lerpnummer = 0;
-            print("klaar");
+           // print("klaar");
         }
         // lerp naar eem kant to 
         //  m_CarArtTransform.localRotation = Quaternion.Lerp(m_CarArtTransform.localRotation, Quaternion.Euler(new Vector3(0, m_YasCarArtGoTo, 0)), Lerpnummer);
@@ -237,10 +237,11 @@ public class CarMovment : MonoBehaviour
         OnGround = false;
         OnGrass = false;
         RaycastHit hit;
-
+        
         if (Physics.Raycast(BeginPointRay.position, -car.transform.up, out hit, RayRange, FloorLayer))
         {
             OnGround = true;
+            OnGrass = false;
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
             Debug.DrawLine(BeginPointRay.position, hit.point);
         }        
@@ -252,6 +253,7 @@ public class CarMovment : MonoBehaviour
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
         }
         //print(hit);
+        test100.bert100.berttext.text = OnGrass.ToString() +" " + OnGround.ToString();
     }
 
     private void ForwardMovement()
