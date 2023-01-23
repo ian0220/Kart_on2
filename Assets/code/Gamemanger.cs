@@ -85,6 +85,14 @@ public class Gamemanger : MonoBehaviour
 
     public void win()
     {
+        Timer.singleton.EndTime();
+        Time.timeScale = 0;
+        StartCoroutine(WinWait());
+    }
+
+    private IEnumerator WinWait()
+    {
+        yield return new WaitForSeconds(7);
         SceneManager.LoadScene(0);
     }
 

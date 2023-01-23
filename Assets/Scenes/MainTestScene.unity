@@ -3263,6 +3263,7 @@ MonoBehaviour:
   m_YVerhogen: -1
   m_DriftStrengt: 5
   GrafetyForce: 20
+  boostParticle: {fileID: 0}
   m_endtimer: 5
   m_timeInfrimeLerp: 600
   m_HowLongToLerp: 100
@@ -5789,6 +5790,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tent (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470984527113603595, guid: 611ed422cdbc890489b5822486026782,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14825,6 +14831,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tent (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470984527113603595, guid: 611ed422cdbc890489b5822486026782,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -58918,6 +58929,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tent (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8470984527113603595, guid: 611ed422cdbc890489b5822486026782,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -64874,6 +64890,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tent
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470984527113603595, guid: 611ed422cdbc890489b5822486026782,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

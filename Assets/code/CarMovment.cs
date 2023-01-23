@@ -10,6 +10,8 @@ public class CarMovment : MonoBehaviour
     [SerializeField] private float m_DriftStrengt = 2;
     [SerializeField] float GrafetyForce = 5;
 
+    [SerializeField] private ParticleSystem boostParticle;
+
     [Header("Drift")]
     [SerializeField] private float m_endtimer = 5;
     private float m_Driftto = 0;
@@ -63,6 +65,7 @@ public class CarMovment : MonoBehaviour
         m_RB = car.GetComponent<CarHelper>().Rbody;
         BeginPointRay = car.GetComponent<CarHelper>().Racetpoint;
         m_CarArtTransform = car.GetComponent<CarHelper>().CarArttf;
+        boostParticle = car.GetComponent<CarHelper>().ParticleSystem;
         m_RB.transform.parent = null;
         m_TurnInput = 0;
     }
@@ -243,11 +246,15 @@ public class CarMovment : MonoBehaviour
             OnGround = true;
             OnGrass = false;
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
+
             Debug.DrawLine(BeginPointRay.position, hit.point);
+
+            print("floor");
+
         }        
         else if (Physics.Raycast(BeginPointRay.position, -car.transform.up, out hit, RayRange, GrassLayer))
         {
-          //  Debug.Log("Grass");
+            print("Grass");
             OnGrass = true;
             OnGround = true;
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
@@ -307,12 +314,14 @@ public class CarMovment : MonoBehaviour
             // zet boost tijd en boost als de tijd over doe is reset die het
             m_timerboost += Time.deltaTime;
             boostspeed = SetBoostSpeed;
+            boostParticle.Play();
         }
         else
         {
             boostspeed = 0;
             m_timerboost = 0;
             GiveBoost = false;
+            boostParticle.Stop();
         }
         m_Speed += boostspeed;
     }

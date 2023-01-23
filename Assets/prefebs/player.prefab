@@ -168,11 +168,12 @@ MonoBehaviour:
   m_YVerhogen: -1
   m_DriftStrengt: 5
   GrafetyForce: 20
-  m_endtimer: 5
+  boostParticle: {fileID: 0}
+  m_endtimer: 1
   m_timeInfrimeLerp: 600
   m_HowLongToLerp: 100
   SetBoostSpeed: 200
-  m_BoostTime: 0.5
+  m_BoostTime: 1
   m_NormalPlayermovement: {fileID: 11400000, guid: fb0d5399be2d1d246ac4c1bf526a4e92,
     type: 2}
   m_DriftMovement: {fileID: 11400000, guid: 6015aacfab3e35049863de36b1e8dc68, type: 2}
@@ -186,7 +187,7 @@ MonoBehaviour:
   GrassLayer:
     serializedVersion: 2
     m_Bits: 8
-  RayRange: 10
+  RayRange: 100
   BeginPointRay: {fileID: 8365702086516954799, guid: 38324d64e9a1260479ec407915e16985,
     type: 3}
   m_CarArtTransform: {fileID: 8365702084970235306, guid: 38324d64e9a1260479ec407915e16985,

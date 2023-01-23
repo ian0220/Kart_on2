@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChechPoitnsmanger : MonoBehaviour
 {
     [SerializeField]private List<GameObject> chechpoint = new List<GameObject>();
+    [SerializeField] private GameObject timerObject;
 
     [SerializeField]private GameObject finish;
 
@@ -12,13 +13,11 @@ public class ChechPoitnsmanger : MonoBehaviour
 
     public GameObject Finish => finish;
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
