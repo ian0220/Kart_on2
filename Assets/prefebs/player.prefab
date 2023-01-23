@@ -187,7 +187,7 @@ MonoBehaviour:
   GrassLayer:
     serializedVersion: 2
     m_Bits: 8
-  RayRange: 100
+  RayRange: 10
   BeginPointRay: {fileID: 8365702086516954799, guid: 38324d64e9a1260479ec407915e16985,
     type: 3}
   m_CarArtTransform: {fileID: 8365702084970235306, guid: 38324d64e9a1260479ec407915e16985,

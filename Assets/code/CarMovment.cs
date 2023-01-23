@@ -247,7 +247,7 @@ public class CarMovment : MonoBehaviour
             OnGrass = false;
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
 
-            Debug.DrawLine(BeginPointRay.position, hit.point);
+            
 
             print("floor");
 
@@ -259,6 +259,8 @@ public class CarMovment : MonoBehaviour
             OnGround = true;
             car.transform.rotation = Quaternion.FromToRotation(car.transform.up, hit.normal) * car.transform.rotation;
         }
+        Debug.DrawLine(BeginPointRay.position, hit.point);
+
     }
 
     private void ForwardMovement()
